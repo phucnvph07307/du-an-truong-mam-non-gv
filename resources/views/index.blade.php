@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title', "Trang chủ")
-{{--  @section('content')
+@section('content')
 <!-- BEGIN: Subheader -->
 <div class="m-subheader ">
     <div class="d-flex align-items-center">
@@ -633,4 +633,4 @@
 
   </div>
 </div>
-@endsection  --}}
+@endsection  
