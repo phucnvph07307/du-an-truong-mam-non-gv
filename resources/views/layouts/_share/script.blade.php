@@ -60,3 +60,8 @@
 <script src="{!! asset('vendors/wizard/wizard.js') !!}"></script>
 <script src="{!! asset('assets/demo/custom/crud/wizard/wizard.js') !!}"></script>
 <script src="{!! asset('assets/snippets/custom/pages/user/login.js') !!}"></script> -->
+<script>
+			$('body').show();
+			NProgress.start();
+			setTimeout(function() { NProgress.done(); $('.fade').removeClass('out'); }, 2000);
+</script>

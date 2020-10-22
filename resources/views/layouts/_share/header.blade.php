@@ -3,12 +3,14 @@
         <div class="m-stack m-stack--ver m-stack--desktop">
 
             <!-- BEGIN: Brand -->
-            <div class="m-stack__item m-brand  m-brand--skin-dark ">
+            <div class="m-stack__item m-brand  m-brand--skin-light ">
                 <div class="m-stack m-stack--ver m-stack--general">
                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
                         <a href="{{ route('home') }}" class="m-brand__logo-wrapper">
-                            <img alt=""
-                                src="https://kidsonline.edu.vn/wp-content/themes/kids-online/assets/images/home/logo.png" />
+                            <img alt="CoolKids"
+                                src="{!! asset('images/coolkids.png') !!}" style="max-width: 100%;
+                                display: block;
+                                height: auto;" />
                         </a>
                     </div>
                     <div class="m-stack__item m-stack__item--middle m-brand__tools">

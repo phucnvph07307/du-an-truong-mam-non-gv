@@ -68,7 +68,7 @@ class ResetPasswordController extends Controller
         $checkUser->email_verified_at = Carbon::now();
         $checkUser->save();
         Auth::logout();
-        return redirect()->route('login')->with('message','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
+        return redirect()->route('login')->with('success_password','Mật khẩu đã được thay đổi thành công, Mời bạn đăng nhập');
     }
 
 

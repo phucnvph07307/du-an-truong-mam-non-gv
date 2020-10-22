@@ -43,7 +43,9 @@ mix.styles(
         "public/vendors/vendors/metronic/css/styles.css",
         "public/vendors/vendors/fontawesome5/css/all.min.css",
 
-        "public/assets/vendors/custom/datatables/datatables.bundle.css"
+        "public/assets/vendors/custom/datatables/datatables.bundle.css",
+        "public/share/progressbar.css",
+        "public/share/nprogress.css"
     ],
     "public/css/all.css"
 )
@@ -114,7 +116,9 @@ mix.styles(
             "public/vendors/jquery-validation/dist/jquery.validate.min.js",
 
             "public/assets/vendors/custom/datatables/datatables.bundle.js",
-            "public/assets/demo/default/custom/crud/datatables/basic/headers.js"
+            "public/assets/demo/default/custom/crud/datatables/basic/headers.js",
+            "public/share/progressbar.js",
+            "public/share/nprogress.js"
         ],
         "public/js/all.js"
     )

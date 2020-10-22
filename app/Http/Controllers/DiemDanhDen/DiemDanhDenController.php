@@ -8,7 +8,6 @@ use App\Repositories\GiaoVien\GiaoVienRepository;
 use App\Repositories\HocSinh\HocSinhRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 class DiemDanhDenController extends Controller
@@ -32,7 +31,7 @@ class DiemDanhDenController extends Controller
         $route_name = Route::current()->action['as'];
         $type = $route_name == "diem_danh_ban_sang.create" ? 1 : 2;
         $renderView = $route_name == "diem_danh_ban_sang.create" ? 'diem-danh.diem-danh-den-ban-sang' : 'diem-danh.diem-danh-den-ban-chieu';
-      
+
         $giaoVien = $this->GiaoVienRepository->teacherInClass();
         $edit = $this->DiemDanhDenRepository->editData($giaoVien->lop_id, $type);
         $students = [];
@@ -46,7 +45,7 @@ class DiemDanhDenController extends Controller
     public function postDiemDanh(Request $request)
     {
         $route_name = Route::current()->action['as'];
-        $type = $route_name == "diem_danh_ban_sang.store" ? 1 : 2 ;
+        $type = $route_name == "diem_danh_ban_sang.store" ? 1 : 2;
         $dataAjax = $request->all();
         $data = json_decode($dataAjax['data']);
         $response = $this->DiemDanhDenRepository->createdOrUpdate($data, $type);

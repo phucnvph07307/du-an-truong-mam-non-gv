@@ -52,7 +52,7 @@
                 <div class="tab-pane active" id="m_tabs_1_1" role="tabpanel">
 
                     <table
-                        class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap dataTable dtr-inline collapsed"
+                        class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap dataTable dtr-inline"
                         id="table1">
                         <thead>
                             <tr>
@@ -137,13 +137,15 @@
 @endsection
 @section('script')
 
-<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/jquery/jquery.dataTables.min.js') }}"></script>
 <!-- https://viblo.asia/p/tim-hieu-jquery-datatables-co-ban-trong-10-phut-07LKXp4eKV4 -->
 <script>
     $(document).ready(function () {
         $('#table1').DataTable({
-            "pageLength": 100
+            "pageLength": 100,
+            "paging": false,
+            "scrollY": "400px",
+            "scrollCollapse": true,
         });
     });
 

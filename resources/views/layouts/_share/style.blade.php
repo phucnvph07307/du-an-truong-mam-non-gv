@@ -1,8 +1,4 @@
 <link href="{!! asset('css/all.css') !!}" rel="stylesheet" type="text/css" />
-<link
-    rel="shortcut icon"
-    href="assets/demo/default/media/img/logo/favicon.ico"
-/>
 
 <!--begin:: Global Optional Vendors -->
 <link

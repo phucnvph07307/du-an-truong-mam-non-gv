@@ -43,10 +43,12 @@ class DiemDanhDenRepository extends BaseModelRepository
                         'trang_thai' => $item->trang_thai,
                         'chu_thich' => $item->chu_thich,
                         'lop_id' => $item->lop_id,
+                        'phieu_an' => $item->phieu_an == true ? 1 : 2,
                     ]);
             } else {
                 $result->giao_vien_id = $item->giao_vien_id;
                 $result->trang_thai = $item->trang_thai;
+                $result->phieu_an = $item->phieu_an == true ? 1 : 2;
                 $result->chu_thich = $item->chu_thich;
                 $result->save();
             }

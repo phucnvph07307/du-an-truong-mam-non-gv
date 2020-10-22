@@ -16,6 +16,7 @@ class DiemDanhDen extends Model
         'trang_thai',
         'type',
         'lop_id',
+        'phieu_an'
     ];
     public function student()
     {

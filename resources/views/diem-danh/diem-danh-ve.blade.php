@@ -39,7 +39,7 @@
             <div class="tab-content">
                 <div class="tab-pane active " id="m_tabs_12_1" role="tabpanel">
                     <table id="table1"
-                        class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap dataTable dtr-inline collapsed">
+                        class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap dataTable dtr-inline">
                         <thead>
                             <tr>
                                 <th>STT</th>
@@ -77,8 +77,8 @@
                                     @foreach ($nguoi_don_ho as $curros)
                                     @if ($curros->user_id == $item->user_id)
                                     <input type="hidden" name="nguoi_don_ho{{ $item->id }}" value="{{ $curros->id }}">
-                                    <button type="button" class="btn btn-warning" data-toggle="modal"
-                                        data-target="{{ '#m_modal_'.$item->user_id}}">Chi tiết</button>
+                                    <i style="cursor: pointer" class="text-warning flaticon-exclamation-1" data-toggle="modal" data-target="{{ '#m_modal_'.$item->user_id}}"></i>
+                                        
                                     @endif
                                     @endforeach
                                 </td>
@@ -111,7 +111,9 @@
                                     @foreach ($nguoi_don_ho as $curros)
                                     @if ($curros->user_id == $item->user_id)
                                     <button type="button" class="btn btn-warning" data-toggle="modal"
-                                        data-target="{{ '#m_modal_'.$item->user_id}}">Chi tiết</button>
+                                        data-target="{{ '#m_modal_'.$item->user_id}}"><i class="flaticon-exclamation-1"></i>
+                                        </button>
+                                        
                                     @endif
                                     @endforeach
                                 </td>
@@ -172,7 +174,7 @@
                             </div>
                         </div>
                         <div class="modal-footer pull-center">
-                            <button type="button" class="btn btn-primary">Xác nhận</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Xác nhận</button>
                         </div>
                     </div>
                 </div>
@@ -193,13 +195,15 @@
 @endsection
 @section('script')
 
-<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/jquery/jquery.dataTables.min.js') }}"></script>
 <!-- https://viblo.asia/p/tim-hieu-jquery-datatables-co-ban-trong-10-phut-07LKXp4eKV4 -->
 <script>
     $(document).ready(function () {
         $('#table1').DataTable({
-            "pageLength": 100
+            "pageLength": 100,
+            "paging": false,
+            "scrollY": "400px",
+            "scrollCollapse": true,
         });
     });
 

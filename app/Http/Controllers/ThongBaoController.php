@@ -21,7 +21,9 @@ class ThongBaoController extends Controller
     public function index()
     {
         $data = [];
-        $thongBao = ThongBao::where('user_id', Auth::id())->get();
+        $thongBao = ThongBao::where('user_id', Auth::id())
+                            ->orWhere('user_id',0)
+                            ->get();
         foreach ($thongBao as $item) {
             array_push($data, $item->NoiDungThongBao);
         }
@@ -31,7 +33,7 @@ class ThongBaoController extends Controller
     public function showThongBao($id)
     {
         $data = $this->NoiDungThongBaoRepository->findById($id);
-        if ($data && $data->thuocThongBao->user_id == Auth::id()) {
+        if ($data && ($data->thuocThongBao->user_id == Auth::id() || $data->thuocThongBao->user_id == 0)) {
             return view('thong-bao.chitiet', compact('data'));
         } else {
             return redirect()->route('thong-bao.index');

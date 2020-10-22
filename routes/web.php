@@ -18,7 +18,9 @@ Route::get('/', function () {
 })->middleware('auth', 'web')->name('app');
 Auth::routes();
 Route::get('profile', 'Auth\AuthController@profile')->middleware('auth', 'web')->name('auth.profile');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function(){
+    return view('index');
+})->name('home');
 
 Route::prefix('quan-ly-hoc-sinh')->group(function () {
     Route::get('/', 'QuanlyHocSinhController@index')->name('quan-ly-hoc-sinh-index');

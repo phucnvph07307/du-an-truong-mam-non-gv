@@ -31,7 +31,7 @@ class ForgotPasswordController extends Controller
         $email = $request->email;
         $checkUser = User::where("email",$email)->first();
         if(!$checkUser){
-            return response()->json(['thongbaoloi'=>"Địa chỉ email không tồn tại"],200);
+            return redirect()->back()->with('error_email',"Địa chỉ email không tồn tại");
         }
         $token = Str::random(60).md5(time());
         $checkUser->token = $token;
@@ -46,13 +46,9 @@ class ForgotPasswordController extends Controller
             'title'=>"Lấy lại mật khẩu"
         ];
 
-
         Mail::send('auth.email_dang_ky',$data,function($message) use ($toemail) {
             $message->to($toemail,'Reset password')->subject('Lấy lại mật khẩu');
         });
-
-        return response()->json([
-            'code' => 200,
-            'thongbaothanhcong'=>"Thành công ! Vui lòng kiểm tra email để thay đổi mật khẩu"],200);
+        return redirect()->back()->with('success_email',"Thành công ! Vui lòng kiểm tra email để thay đổi mật khẩu");
     }
 }

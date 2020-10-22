@@ -47,7 +47,7 @@
 					<div class="m-login__container">
 						<div class="m-login__logo">
 							<a href="#">
-								<img src="{!! asset('assets/app/media/img/logos/logo-1.png') !!}">
+								<img src="{!! asset('images/coolkids.png') !!}">
 							</a>
 						</div>
 						<div class="m-login__signin">
@@ -64,7 +64,7 @@
                                 </div>
 						        @endif
 								<div class="form-group m-form__group">
-									<input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off" value="{{ $email ?? old('email') }}" readonly>
+									<input class="form-control m-input" type="hidden" placeholder="Email" name="email" autocomplete="off" value="{{ $email ?? old('email') }}" readonly>
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

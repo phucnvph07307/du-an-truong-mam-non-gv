@@ -51,7 +51,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="m_tabs_1_1" role="tabpanel">
 
-                    <table class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap dataTable dtr-inline collapsed" id="table1">
+                    <table class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap dataTable dtr-inline display" id="table1" style="width:100%">
                         <thead>
                             <tr>
                                 <th>STT</th>
@@ -62,6 +62,7 @@
                                 <th>Đi Học</th>
                                 <th>Nghỉ Có Phép</th>
                                 <th>Nghỉ Không Phép</th>
+                                <th>Phiếu ăn</th>
                                 <th>Ghi chú</th>
 
                             </tr>
@@ -83,6 +84,7 @@
                                         <td><input type="radio" value="1" name="{{ $item->id }}" checked="true"></td>
                                         <td><input type="radio" value="2" name="{{ $item->id }}"></td>
                                         <td><input type="radio" value="3" name="{{ $item->id }}"></td>
+                                        <td><input type="checkbox" name="phieu_an_{{ $item->id }}" checked="true"></td>
                                         <td><textarea name="chu_thich_{{ $item->id }}"></textarea></td>
                                     </tr>
                                 @endforeach
@@ -103,6 +105,7 @@
                                         <td><input type="radio" value="1" name="{{ $item->id }}" {{ ($item->trang_thai == 1)?'checked':'' }}></td>
                                         <td><input type="radio" value="2" name="{{ $item->id }}" {{ ($item->trang_thai == 2)?'checked':'' }}></td>
                                         <td><input type="radio" value="3" name="{{ $item->id }}" {{ ($item->trang_thai == 3)?'checked':'' }}></td>
+                                        <td><input type="checkbox" name="phieu_an_{{ $item->id }}" {{ ($item->phieu_an == 1)?'checked':'' }}></td>
                                         <td><textarea name="chu_thich_{{ $item->id }}">{{ $item->chu_thich ? $item->chu_thich : '' }}</textarea></td>
                                     </tr>
                             @endforeach
@@ -133,13 +136,15 @@
 @endsection
 @section('script')
 
-<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/jquery/jquery.dataTables.min.js') }}"></script>
 <!-- https://viblo.asia/p/tim-hieu-jquery-datatables-co-ban-trong-10-phut-07LKXp4eKV4 -->
 <script>
     $(document).ready(function () {
         $('#table1').DataTable({
-            "pageLength": 100
+            "pageLength": 100,
+            "paging": false,
+            "scrollY": "400px",
+            "scrollCollapse": true,
         });
     });
 
@@ -153,7 +158,8 @@
                     'giao_vien_id': "{{ \Illuminate\Support\Facades\Auth::id() }}",
 					'trang_thai': $(statusList[i]).val(),
 					'chu_thich': $('[name=chu_thich_'+$(statusList[i]).attr('name')+']').val(),
-                    'lop_id': $('[name=lop_' + $(statusList[i]).attr('name') + ']').val()
+                    'lop_id': $('[name=lop_' + $(statusList[i]).attr('name') + ']').val(),
+                    'phieu_an': $('[name=phieu_an_'+$(statusList[i]).attr('name')+']').is(':checked'),
 				}
 				data.push(std)
 			}
