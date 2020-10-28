@@ -56,6 +56,11 @@ Route::prefix('cong-viec-hang-ngay')->group(function () {
     });
 });
 
+Route::prefix('danh-gia-dinh-ki')->group(function() {
+        Route::get('/','DanhGiaDinhKiController@index')->name('danh-gia-dinh-ki-index');
+});
+
+
 Route::prefix('quan-ly-suc_khoe')->group(function () {
     Route::get('/', 'SucKhoeController@index')->name('quan-suc-khoe-index');
     Route::post('/check-dot-kham-suc-khoe', 'SucKhoeController@checkdot')->name('quan-suc-khoe-check-dot');
