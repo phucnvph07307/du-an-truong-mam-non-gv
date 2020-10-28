@@ -23,7 +23,6 @@ class DiemDanhVeRepository extends BaseModelRepository
     public function createdOrUpdate($data = [])
     {
         $mydate = new \DateTime();
-        $mydate->modify('+7 hours');
         $currrenDate = $mydate->format('Y-m-d');
         $code = 201;
 
@@ -59,7 +58,6 @@ class DiemDanhVeRepository extends BaseModelRepository
     public function editData($lop_id)
     {
         $mydate = new \DateTime();
-        $mydate->modify('+7 hours');
         $currrenDate = $mydate->format('Y-m-d');
 
         return $this->model::whereDate('created_at', '=', $currrenDate)

@@ -2,15 +2,6 @@
 @section('title', "Điểm danh về")
 @section('content')
 <div class="m-content">
-    <div class="m-alert m-alert--icon m-alert--air m-alert--square alert alert-dismissible m--margin-bottom-30"
-        role="alert">
-        <div class="m-alert__icon">
-            <i class="flaticon-exclamation m--font-brand"></i>
-        </div>
-        <div class="m-alert__text">
-            DataTables
-        </div>
-    </div>
     <!--begin::Portlet-->
     <div class="m-portlet m-portlet--mobile">
         <div class="m-portlet__head">
@@ -21,19 +12,15 @@
                     </h3>
                 </div>
             </div>
-            <div class="m-portlet__head-tools">
-                <ul class="m-portlet__nav">
-                    <li class="m-portlet__nav-item">
-                        <button onclick="button" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air">
-                            <span>
-                                <span>Cập nhật</span>
-                            </span>
-                        </button>
-                    </li>
-
-                </ul>
-            </div>
         </div>
+        @php
+        $hours_now = \Carbon\Carbon::now()->toTimeString();
+        $hours_start = \Carbon\Carbon::createFromFormat('H:i:s', '12:30:00')->toTimeString();
+        $hours_end = \Carbon\Carbon::createFromFormat('H:i:s', '17:30:00')->toTimeString();
+        @endphp
+
+        @if ($hours_start <= $hours_now && $hours_now <= $hours_end)
+
         <div class="m-portlet__body">
 
             <div class="tab-content">
@@ -68,7 +55,7 @@
                                     <input type="hidden" name="user_{{ $item->id }}"  value="{{ $item->user_id }}"></td>
                                 <td>{{ $item->ma_hoc_sinh }}</td>
                                 <td>{{ $item->ten }}</td>
-                                <td><img src="{{ $item->avatar }}" alt="avatar"></td>
+                                <td><img src="{{ $item->avatar }}" alt="avatar"  width="60" class="img-thumbnail"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
                                 <td><input type="radio" value="1" name="{{ $item->id }}" checked="true"></td>
                                 <td><input type="radio" value="2" name="{{ $item->id }}"></td>
@@ -99,7 +86,7 @@
                                     <input type="hidden" name="user_{{ $item->id }}"  value="{{ $item->user_id }}"></td>
                                 <td>{{ $item->student->ma_hoc_sinh }}</td>
                                 <td>{{ $item->student->ten }}</td>
-                                <td><img src="{{ $item->student->avatar }}" alt="avatar"></td>
+                                <td><img src="{{ $item->student->avatar }}" alt="avatar"  width="60" class="img-thumbnail"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
                                 <td><input type="radio" value="1" name="{{ $item->id }}"
                                         {{ ($item->trang_thai == 1)?'checked':'' }}></td>
@@ -187,6 +174,19 @@
 
 
         </div>
+        @else
+
+        <div class="m-portlet__body">
+            <div class="tab-content">
+                <div class="m-alert m-alert--outline alert alert-warning alert-dismissible fade show" role="alert">
+                   
+                    <strong>Thông báo!</strong> Thời gian điểm danh đã đóng.
+                </div>
+            </div>
+        </div>
+
+        @endif
+
     </div>
     <!--end::Portlet-->
 </div>

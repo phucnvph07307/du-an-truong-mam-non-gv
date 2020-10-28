@@ -3,9 +3,6 @@
         background: #d0e7ff;
     }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/vi.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
 <script>
     var firebaseConfig = {
         apiKey: "AIzaSyCixF05x85kh6pkORyLCA8S2cVHAp5xFhQ",

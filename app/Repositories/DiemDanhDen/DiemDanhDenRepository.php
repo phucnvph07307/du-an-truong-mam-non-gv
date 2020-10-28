@@ -23,12 +23,10 @@ class DiemDanhDenRepository extends BaseModelRepository
     public function createdOrUpdate($data = [], $type = null)
     {
         $mydate = new \DateTime();
-        $mydate->modify('+7 hours');
         $currrenDate = $mydate->format('Y-m-d');
         $code = 201;
-
         foreach ($data as $item) {
-            $result = $this->model::where('ngay_diem_danh_den', '=', $currrenDate)
+            $result = $this->model::whereDate('ngay_diem_danh_den', '=', $currrenDate)
                 ->where('hoc_sinh_id', $item->hoc_sinh_id)
                 ->where('type', $type)
                 ->first();
@@ -59,7 +57,6 @@ class DiemDanhDenRepository extends BaseModelRepository
     public function editData($lop_id, $type)
     {
         $mydate = new \DateTime();
-        $mydate->modify('+7 hours');
         $currrenDate = $mydate->format('Y-m-d');
 
         return $this->model::whereDate('created_at', '=', $currrenDate)
