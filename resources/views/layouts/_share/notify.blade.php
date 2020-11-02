@@ -28,7 +28,7 @@
                 let relativeTime = getMinimalisticRelativeTime(res[i].created_at);
                 content += `
                             <div data-id="${res[i].id}" 
-                                 data-href="${res[i].route}" 
+                                 data-href='${res[i].route}'
                                  data-type="${res[i].type}"
                                  onclick="linkTo(this)" 
                                  class="fc-event fc-event-external ${res[i].type == 1 ? 'fc-start m-fc-event--primary':''} m--margin-bottom-15 ui-draggable ui-draggable-handle item-notifi">
@@ -47,10 +47,11 @@
     function linkTo(element) {
         let data_id = element.getAttribute('data-id');
         let data_href = element.getAttribute('data-href');
+        let link = JSON.parse(data_href);
         let data_type = element.getAttribute('data-type');
         let str_after_replace = data_href.replace('http://', '');
         var href = str_after_replace.substr(str_after_replace.indexOf("/"), str_after_replace.length - 1)
-        window.location.href = href;
+        window.location.href = route(link.route_name, link.params);
 
         if(data_type == 1 || data_type == '1'){
             isRead(data_id, 2);

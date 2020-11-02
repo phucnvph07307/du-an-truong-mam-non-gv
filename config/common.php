@@ -1,5 +1,6 @@
 <?php
 return [
+    'DB_HOST_STORAGE' => "http://127.0.0.1:8000", 
     'paginate_size' => [
         'default' => 10,
         'list' => [10, 20, 50, 100],

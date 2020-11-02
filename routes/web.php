@@ -79,4 +79,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::post('changeType', 'NotificationController@changeType')->name('notification.changeType');
 
+    Route::get('/album-anh', 'AlbumController@index')->name('album.index');
+    Route::get('/album-anh/{id}', 'AlbumController@show')->name('album.show');
 });
