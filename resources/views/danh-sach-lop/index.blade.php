@@ -2,46 +2,93 @@
 @section('title', "Danh sách lớp")
 @section('content')
 <style>
- 
-.drop-me {
-  cursor: pointer;
-  box-shadow: 0px 1rem 1.5rem rgba(0,0,0,0.5);
-  border-radius: 2rem;
-  transition: 0.5s;
+.card {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 300px;
+    height: 300px;
+    background: #000;
+    margin-top: 50%;
+    margin-left: 20px;
 }
-.drop-me:hover {
-  box-shadow: 0px 1rem 1.5rem rgba(0,0,0,0.5);
-  transform: scale(1.1);
-
+.card .image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
-.card{
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 300px 20px 10px;
-    grid-template-areas: "image" "text" "status";
-
-    font-family: roboto;
-    border-radius: 2rem;
+.card .image img {
+    width: 100%;
+    transition: .5s;
+}
+.card:hover .image img {
+    opacity: .5;
+    transform: translateX(30%);/*100%*/
+}
+.card .details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70%;/*100%*/
+    height: 100%;
+    background: #ffc107;
+    transition: .5s;
+    transform-origin: left;
+    transform: perspective(2000px) rotateY(-90deg);
+}
+.card:hover .details {
+    transform: perspective(2000px) rotateY(0deg);
+}
+.card .details .center {
+    padding: 20px;
     text-align: center;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
-.card-image{
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
-    background-size: cover;
+.card .details .center h1 {
+    margin: 0;
+    padding: 0;
+    color: #ff3636;
+    line-height: 20px;
+    font-size: 20px;
+    text-transform: uppercase;
 }
-.card-text{
-    grid-area: text;
-    font-size: 1.5rem;
-    font-weight: 500;
+.card .details .center h1 span {
+    font-size: 14px;
+    color: #262626;
+}
+.card .details .center p {
+    margin: 10px 0;
+    padding: 0;
+    color: #262626;
+}
+.card .details .center ul {
+    margin: 10px auto 0;
+    padding: 0;
+    display: table;
+}
+.card .details .center ul li {
+    list-style: none;
+    margin: 0 5px;
+    float: left;
+}
+.card .details .center ul li a {
+    display: block;
+    background: #262626;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    transform: .5s;
+}
+.card .details .center ul li a:hover {
+    background: #ff3636;
 }
 
-
-.m-portlet {
-    font-size: 1rem;
-    color: #404040;
-    font-family: Montserrat, sans-serif;
-    background-image: linear-gradient(to bottom right, #ff9eaa 0% 10%, #e860ff 95% 100%);
- }
 
 </style>
 
@@ -62,16 +109,40 @@
                 @forelse ($lopHoc->Student as $item)
                     <div class="col-xs-12 col-sm-4 col-md-3 pt-3 item-info" data="{{ $item}}">
                         <!--begin::Portlet-->
-                        <div class="m-portlet m-portlet--tab drop-me" data-toggle="popover" title="Thông tin cá nhân">
-                            <div class="card">
+                      
+                            {{-- <div class="card">
                             <div class="card-image" style="background-image: url('{{ $item->avatar}}');">
                                 </div>
                                 <div class="card-text">
                                     {{ $item->ten}}
                                 </div>
-                            </div>
-                        </div>
+                            </div> --}}
+                            <div class="card">
+                                <div class="image">
+                                <img src="{{$item->avatar}}"/>
+                                </div>
+                                <div class="details">
+                                  <div class="center">
+                                    <h1>Someone famous<br><span>team leader</span></h1>
+                                    <p>Lorem ipsum is simple dummy text on the printing and typesetting industry.</p>
+                                    <ul>
+                                      <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                      <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+
+                        
                     </div>
+
+                   
+                    
+        
+    
                 @empty
                     <div class="d-flex justify-content-center">
                         <div class="m-demo " data-code-preview="true" data-code-html="true" data-code-js="false">
