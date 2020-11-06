@@ -19,12 +19,12 @@
                     <div class="m-portlet__head-tools">
                         <ul class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm" role="tablist">
                             <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link active show" data-toggle="tab" href="#m_widget4_tab1_content" role="tab" aria-selected="true">
+                                <a class="nav-link m-tabs__link"  href="{{ route('thong-bao.index') }}">
                                     Đã nhận
                                 </a>
                             </li>
                             <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link"  href="{{ route('thong-bao.da-gui') }}">
+                                <a class="nav-link m-tabs__link active show" data-toggle="tab" href="#m_widget4_tab2_content" role="tab" aria-selected="true">
                                     Đã gửi
                                 </a>
                             </li>
@@ -57,56 +57,54 @@
                 </div>
                 <div class="m-portlet__body">
                     <div class="tab-content">
-                        <div class="tab-pane active show" id="m_widget4_tab1_content">
-
-                            @foreach ($data as $item )
-                                <div class="m-widget3">
-                                    <div class="m-widget3__item">
-                                        <div class="m-widget3__header">
-                                            <div class="m-widget3__user-img">
-                                                <img class="m-widget3__img" src="../../assets/app/media/img/users/user1.jpg" alt="">
-                                            </div>
-                                            <div class="m-widget3__info">
-                                                <span class="m-widget3__username">
-                                                    {{ $item->NoiDungThongBao->Auth->name}}
-                                                </span>
-                                            </div>
-                                            <div class="m-widget4__ext">
-                                                <a href="{{ route('thong-bao.show',['id'=>$item->NoiDungThongBao->id]) }}" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
-                                                    Xem
-                                                </a>
-                                            </div>
+                        <div class="tab-pane active show" id="m_widget4_tab2_content">
+                            @foreach ($thongBaoDaGui as $item )
+                            <div class="m-widget3">
+                                <div class="m-widget3__item">
+                                    <div class="m-widget3__header">
+                                        <div class="m-widget3__user-img">
+                                            <img class="m-widget3__img" src="../../assets/app/media/img/users/user1.jpg" alt="">
                                         </div>
-                                        <div class="m-widget3__body">
-                                            <div class="m-widget5__section">
-                                                <h4 class="m-widget5__title">
-                                                    {{ $item->NoiDungThongBao->title}}
-                                                </h4>
-                                                <div class="m-widget5__info">
-                                                    <span class="m-widget5__author">
-                                                        Người gửi:
-                                                    </span>
-                                                    <span class="m-widget5__info-author m--font-info">
-                                                        {{ $item->NoiDungThongBao->Auth->name}}
-                                                    </span>
-                                                    <span class="m-widget5__info-label">
-                                                        Ngày:
-                                                    </span>
-                                                    <span class="m-widget5__info-date m--font-info">
-                                                        {{ $item->NoiDungThongBao->created_at}}
-                                                    </span>
-                                                </div>
+                                        <div class="m-widget3__info">
+                                            <span class="m-widget3__username">
+                                                {{ $item->Auth->name}}
+                                            </span>
+                                        </div>
+                                        <div class="m-widget4__ext">
+                                            <a href="{{ route('thong-bao.show2',['id'=>$item->id]) }}" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary">
+                                                Xem
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="m-widget3__body">
+                                        <div class="m-widget5__section">
+                                            <h4 class="m-widget5__title">
+                                                {{ $item->title}}
+                                            </h4>
+                                            <div class="m-widget5__info">
+                                                <span class="m-widget5__author">
+                                                    Người gửi:
+                                                </span>
+                                                <span class="m-widget5__info-author m--font-info">
+                                                    {{ $item->Auth->name}}
+                                                </span>
+                                                <span class="m-widget5__info-label">
+                                                    Ngày:
+                                                </span>
+                                                <span class="m-widget5__info-date m--font-info">
+                                                    {{ $item->created_at}}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
-                                    
                                 </div>
-                                <hr>
-                            @endforeach
-                            <div class="m-portlet__foot d-flex justify-content-end">
-                                {{ $data->links() }}
                             </div>
-                            <!--end::Widget 14-->
+                            <hr>
+                        @endforeach
+                        <div class="m-portlet__foot d-flex justify-content-end">
+                            {{ $thongBaoDaGui->links() }}
+                        </div>
+                            
                         </div>
                     </div>
                 </div>

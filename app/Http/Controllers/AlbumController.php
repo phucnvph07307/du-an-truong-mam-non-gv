@@ -14,7 +14,10 @@ class AlbumController extends Controller
 {
     public function index()
     {
-        $lop_id = Auth::user()->profile->lop_id;
+        $lop_id = Auth::user()->profile ? Auth::user()->profile->lop_id : null;
+        if(!$lop_id){
+            return redirect()->route('app')->with('mess','Bạn chưa dc xếp lớp !');;
+        }
         $data = [];
         $album = Album::where('lop_id', $lop_id)->get();
         foreach($album as $item){

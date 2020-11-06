@@ -80,7 +80,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::prefix('thong-bao')->group(function () {
         Route::get('/', 'ThongBaoController@index')->name('thong-bao.index');
-        Route::get('/{id}', 'ThongBaoController@showThongBao')->name('thong-bao.show')->where('id', '[0-9]+');;
+        Route::get('/da-gui', 'ThongBaoController@thongBaoDaGui')->name('thong-bao.da-gui');
+        Route::get('/{id}', 'ThongBaoController@showThongBao')->name('thong-bao.show')->where('id', '[0-9]+');
+        Route::get('/show/{id}', 'ThongBaoController@showThongBao2')->name('thong-bao.show2')->where('id', '[0-9]+');
+        Route::get('/gui-moi', 'ThongBaoController@create')->name('thong-bao.create');
+        Route::post('/gui-moi', 'ThongBaoController@store')->name('thong-bao.store');
+        Route::post('/remove', 'ThongBaoController@remove')->name('thong-bao.remove');
+        Route::post('/remove2', 'ThongBaoController@remove2')->name('thong-bao.remove2');
     });
 
     Route::post('changeType', 'NotificationController@changeType')->name('notification.changeType');

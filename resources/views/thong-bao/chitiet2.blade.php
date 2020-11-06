@@ -60,7 +60,7 @@
         confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.value) {
-                axios.post("{{ route('thong-bao.remove') }}",{'thongbao_id': id})
+                axios.post("{{ route('thong-bao.remove2') }}",{'id': Number(id)})
                 .then(res => {
                     if(res.status == 201){
                         Swal.fire(
@@ -68,7 +68,7 @@
                         'Thông báo đã dc xóa bỏ',
                         'success'
                         )
-                        window.location.href = route('thong-bao.index');
+                        window.location.href = route('thong-bao.da-gui');
                     }
                 })
             }

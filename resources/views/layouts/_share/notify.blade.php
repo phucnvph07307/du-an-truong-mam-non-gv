@@ -3,17 +3,8 @@
         background: #d0e7ff;
     }
 </style>
+<script src="{{ asset('firebase/firebaseConfig.js') }}"></script>
 <script>
-    var firebaseConfig = {
-        apiKey: "AIzaSyCixF05x85kh6pkORyLCA8S2cVHAp5xFhQ",
-        authDomain: "notify-1f812.firebaseapp.com",
-        databaseURL: "https://notify-1f812.firebaseio.com",
-        projectId: "notify-1f812",
-        storageBucket: "notify-1f812.appspot.com",
-        messagingSenderId: "902720459484",
-        appId: "1:902720459484:web:897b722d3b1e9143f9da19",
-        measurementId: "G-RVQZG7D065",
-    };
     firebase.initializeApp(firebaseConfig);
     var db = firebase.database().ref().child("notification").orderByChild("user_id");
 
@@ -35,7 +26,7 @@
                 // .then(function () {
                 //     // always executed
                 // });
-                count = res[i].type == 1 ? ++count : count;
+                count = (res[i].type == 1 && res[i].bell == 1) ? ++count : count;
                 let relativeTime = getMinimalisticRelativeTime(res[i].created_at);
                 content += `
                             <div data-id="${res[i].id}" 

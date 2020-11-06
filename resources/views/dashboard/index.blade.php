@@ -114,4 +114,15 @@
     </div>
     </div>
 </div>
+@if (session('mess'))
+	<script>
+		Swal.fire({
+			position: 'top-center',
+			icon: 'warning',
+			title: 'Hiện tại bạn chưa dc xếp lớp !',
+			text: 'Vui lòng liên hệ nhà trường xếp lớp',
+			timer: 5000
+		})
+	</script>
+@endif
 @endsection
