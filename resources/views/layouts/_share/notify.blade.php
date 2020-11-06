@@ -50,9 +50,12 @@
         let data_id = element.getAttribute('data-id');
         let data_href = element.getAttribute('data-href');
         let link = JSON.parse(data_href);
+        // console.log(link)
         let data_type = element.getAttribute('data-type');
         let str_after_replace = data_href.replace('http://', '');
         var href = str_after_replace.substr(str_after_replace.indexOf("/"), str_after_replace.length - 1)
+        console.log(route(link.route_name, link.params))
+
         window.location.href = route(link.route_name, link.params);
 
         if(data_type == 1 || data_type == '1'){
@@ -89,5 +92,4 @@
             });
         });
     });
-
 </script>

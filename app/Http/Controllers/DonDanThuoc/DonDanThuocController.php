@@ -114,6 +114,9 @@ class DonDanThuocController extends Controller
     public function guiPhanHoi(Request $request)
     {
         $data = $request->all();
+        $don_thuoc = $this->DonDanThuocRepository->find($request->don_dan_thuoc_id);
+        $thong_tin_nguoi_nhan = $don_thuoc->HocSinh;
+        // dd($thong_tin_nguoi_nhan->id);
         $nguoi_phan_hoi_id = $request->nguoi_phan_hoi_id;
         $noi_dung = $request->noi_dung;
         $device = 'fiuTWIB5Rt6ZpPYn76zXVc:APA91bFmBH1cNZMx-ZqfXumM8ktE4UbGbJHKA02IQXCfI6KPeYFg75i9pyl8WE17IY_7aeM6iN-LAt4xsaioVGJqctiXpnE5PXMG5EynbMV1OO52LChV5sDBelAMO177RflYna52Ca_q';
@@ -122,8 +125,8 @@ class DonDanThuocController extends Controller
         $thongbao['title'] ='Trả lời đơn dặn thuốc';
         $thongbao['content'] =$noi_dung;
         $thongbao['route'] = 'route';
-        $thongbao['user_id'] ='18';
-        $thongbao['auth_id'] ='18';
+        $thongbao['user_id'] =$thong_tin_nguoi_nhan->id;
+        $thongbao['auth_id'] =$nguoi_phan_hoi_id;
         $this->NotificationRepository->create($thongbao);
         
         $data_thong_bao['title'] = 'Giáo viên đã phản hồi về đơn dặn thuốc của bạn';

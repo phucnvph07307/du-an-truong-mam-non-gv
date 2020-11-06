@@ -73,12 +73,13 @@ class HoatDongController extends Controller
         }
         $dateCreate = [
             'id_gv' => $giao_vien->id,
+            'lop_id' => $giao_vien->lop_id,
             'tuan' => $request->tuan,
             'nam' => $now->year,
             'link_file_hd' => $link_file_pdf,
             'type' => 1
         ];
         $this->HoatDongRepository->create($dateCreate);
-        return redirect()->route('hoat-dong-hoc-index')->with('status', 'Thanh cong!');
+        return redirect()->route('hoat-dong-hoc-index')->with('status', ' Thanh cong! ');
     }
 }

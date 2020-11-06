@@ -625,7 +625,25 @@
     </div>
 </div>
 
-
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 @endsection
 
@@ -637,6 +655,7 @@
 
 <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/jquery/jquery.dataTables.min.js') }}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
 
 <!-- https://viblo.asia/p/tim-hieu-jquery-datatables-co-ban-trong-10-phut-07LKXp4eKV4 -->
 <script>
@@ -651,8 +670,12 @@
         $('#table3').DataTable({
             "pageLength": 100
         });
+        var url_string = window.location.href
+        var url = new URL(url_string);
+        var id_don = url.searchParams.get("id_don");
+        var modal_show = '#m_modal_'+id_don
+        $(modal_show).modal('show')
     });
-
     const guiPhanHoi = (id_don) =>{
         var class_phan_hoi = 'noi_dung_phan_hoi_'+id_don
         axios.post(url_gui_phan_hoi_dan_thuoc,{
@@ -675,4 +698,5 @@
     };
 
 </script>
+
 @endsection
