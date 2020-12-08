@@ -95,14 +95,6 @@
     
 @endsection
 @section('content')
-<!-- BEGIN: Subheader -->
-<div class="m-subheader ">
-    <div class="d-flex align-items-center">
-        <div class="mr-auto">
-            <h3 class="m-subheader__title ">Dashboard</h3>
-        </div>
-    </div>
-</div>
 <div class="m-content">
 
   <div class="m-alert m-alert--icon m-alert--air m-alert--square alert alert-dismissible " role="alert">
@@ -197,12 +189,12 @@
       </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-warning shadow h-100 py-2">
+      <div class="card border-left-warning shadow h-100 py-2" style="cursor: pointer" onclick="window.location.href = route('hoat-dong-hoc-index')">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Hoạt động học</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
             </div>
             <div class="col-auto">
               <i class="flaticon-folder-1  fa-2x text-gray-300"></i>
@@ -275,7 +267,12 @@
                         </tr>
                       </thead>
                       <tbody>
-
+                        <script>
+                          function errorLoadAvatar(e){
+                              let ten = e.getAttribute('data-ten');
+                              e.setAttribute('src', "https://ui-avatars.com/api/?name=" + ten + "&background=random");
+                          }
+                        </script>
                             @foreach ($lopHoc->Student as $key => $item)
                               @php
                                 $date=date_create($item->ngay_sinh);
@@ -284,7 +281,7 @@
                               <td class="sorting_1">{{ ++$key }}</td>
                                 <td>{{ $item->ma_hoc_sinh }}</td>
                                 <td>{{ $item->ten }}</td>
-                                <td><img width="100px" height="100px" src="{{ $item->avatar }}"></td>
+                                <td><img width="70px" height="70px" src="{{ $item->avatar }}" onerror="errorLoadAvatar(this)" data-ten="{{ $item->ten }}"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
 
                                 <td nowrap="">
@@ -403,6 +400,6 @@
         });
     });
 </script>
-<script src="{!! asset('phao_hoa/phao_hoa.js') !!}"></script>
+{{-- <script src="{!! asset('phao_hoa/phao_hoa.js') !!}"></script> --}}
 @endsection
 

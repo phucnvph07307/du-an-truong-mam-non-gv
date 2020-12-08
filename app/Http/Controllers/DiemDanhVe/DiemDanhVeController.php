@@ -9,6 +9,7 @@ use App\Repositories\HocSinh\HocSinhRepository;
 use App\Repositories\NguoiDonHo\NguoiDonHoRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use CarBon\Carbon;
 
 class DiemDanhVeController extends Controller
 {
@@ -47,7 +48,18 @@ class DiemDanhVeController extends Controller
     {
         $dataAjax = $request->all();
         $data = json_decode($dataAjax['data']);
-        $response = $this->DiemDanhVeRepository->createdOrUpdate($data);
+
+        $response['data'] = [];
+        $response['code'] = 288;
+        $now = Carbon::now();
+        $thoi_gian_hien_tai = strtotime($now);
+        $thoi_gian_bat_dau = strtotime($now->format('Y-m-d') . " 12:00:00");
+        $thoi_gian_ket_thuc = strtotime($now->format('Y-m-d') . " 18:00:00");
+
+        if( $thoi_gian_bat_dau < $thoi_gian_hien_tai && $thoi_gian_hien_tai < $thoi_gian_ket_thuc){
+            $response = $this->DiemDanhVeRepository->createdOrUpdate($data);
+        }
+
         return response()->json([
             'data' => $response['data'],
             'code' => $response['code'],

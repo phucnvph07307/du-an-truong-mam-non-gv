@@ -189,4 +189,27 @@ class AlbumController extends Controller
         }
         return response()->json(['images' => $album->item_images, 'code' => 1], Response::HTTP_OK);
     }
+
+    public function removeAlbum(Request $request)
+    {
+        $album = Album::find($request->id);
+        $hinh_anh_thu_0 = json_decode($album->item_images)[0];
+        $vitri = strrpos( $hinh_anh_thu_0, '/', 3 );
+        $kq = substr($hinh_anh_thu_0, 0, $vitri);
+
+        $path = public_path() . '/' . $kq . '/';
+        $path = rtrim($path, '/') . '/';
+        $handle = opendir($path);
+        while (false !== ($file = readdir($handle))) {
+            if($file != '.' and $file != '..' ) {
+                $fullpath = $path.$file;
+                if (is_dir($fullpath)) rmdir_recurse($fullpath);
+                else unlink($fullpath);
+            }
+        }
+        closedir($handle);
+        rmdir($path);
+        $album->delete();
+        return response()->json(['code' => 1], Response::HTTP_OK);
+    }
 }

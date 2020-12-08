@@ -9,6 +9,7 @@ use App\Repositories\HocSinh\HocSinhRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
+use CarBon\Carbon;
 
 class DiemDanhDenController extends Controller
 {
@@ -48,7 +49,26 @@ class DiemDanhDenController extends Controller
         $type = $route_name == "diem_danh_ban_sang.store" ? 1 : 2;
         $dataAjax = $request->all();
         $data = json_decode($dataAjax['data']);
-        $response = $this->DiemDanhDenRepository->createdOrUpdate($data, $type);
+
+        $response['data'] = [];
+        $response['code'] = 288;
+        $now = Carbon::now();
+        $thoi_gian_hien_tai = strtotime($now);
+
+        if($type == 1){
+            $thoi_gian_bat_dau = strtotime($now->format('Y-m-d') . " 07:00:00");
+            $thoi_gian_ket_thuc = strtotime($now->format('Y-m-d') . " 09:00:00");
+            if( $thoi_gian_bat_dau < $thoi_gian_hien_tai && $thoi_gian_hien_tai < $thoi_gian_ket_thuc){
+                $response = $this->DiemDanhDenRepository->createdOrUpdate($data, $type);
+            }
+        }else {
+            $thoi_gian_bat_dau = strtotime($now->format('Y-m-d') . " 13:00:00");
+            $thoi_gian_ket_thuc = strtotime($now->format('Y-m-d') . " 14:00:00");
+            if( $thoi_gian_bat_dau < $thoi_gian_hien_tai && $thoi_gian_hien_tai < $thoi_gian_ket_thuc){
+                $response = $this->DiemDanhDenRepository->createdOrUpdate($data, $type);
+            }
+        }
+
         return response()->json([
             'data' => $response['data'],
             'code' => $response['code'],

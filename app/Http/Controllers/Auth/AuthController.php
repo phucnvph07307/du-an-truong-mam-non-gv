@@ -46,7 +46,7 @@ class AuthController extends Controller
     public function profile()
     {   
         $user=Auth::user()->id;
-        $giao_vien=GiaoVien::find($user);
+        $giao_vien=GiaoVien::where('user_id', $user)->first();
         return view('auth.profile',compact('giao_vien','user'));
     }
 

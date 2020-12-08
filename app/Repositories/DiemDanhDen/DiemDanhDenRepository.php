@@ -30,6 +30,11 @@ class DiemDanhDenRepository extends BaseModelRepository
                 ->where('hoc_sinh_id', $item->hoc_sinh_id)
                 ->where('type', $type)
                 ->first();
+            $phieu_an = 2;
+            if($type == 1){
+                $phieu_an = $item->trang_thai == 2 ? $phieu_an : ($item->phieu_an == true ? 1 : 2);
+            }
+
             if (!$result) {
                 $code = 200;
                 $data_create = $this->model::create(
@@ -41,12 +46,12 @@ class DiemDanhDenRepository extends BaseModelRepository
                         'trang_thai' => $item->trang_thai,
                         'chu_thich' => $item->chu_thich,
                         'lop_id' => $item->lop_id,
-                        'phieu_an' => $item->phieu_an == true ? 1 : 2,
+                        'phieu_an' => $phieu_an,
                     ]);
             } else {
                 $result->giao_vien_id = $item->giao_vien_id;
                 $result->trang_thai = $item->trang_thai;
-                $result->phieu_an = $item->phieu_an == true ? 1 : 2;
+                $result->phieu_an = $phieu_an;
                 $result->chu_thich = $item->chu_thich;
                 $result->save();
             }

@@ -1,6 +1,12 @@
 @extends('layouts.main')
 @section('title', "Điểm danh đến ban chiều")
 @section('content')
+<script>
+    function errorLoadAvatar(e){
+        let name_avatar = e.getAttribute('data-name_avatar');
+        e.setAttribute('src', "https://ui-avatars.com/api/?name=" + name_avatar + "&background=random");
+    }
+</script>
 <div class="m-content">
     <!--begin::Portlet-->
     <div class="m-portlet m-portlet--mobile">
@@ -19,7 +25,7 @@
             $hours_end = \Carbon\Carbon::createFromFormat('H:i:s', '14:00:00')->toTimeString();
         @endphp
 
-        {{-- @if ($hours_start <= $hours_now && $hours_now <= $hours_end) --}}
+        {{-- @if ($hours_start < $hours_now && $hours_now < $hours_end) --}}
         @if (true)
 
         <div class="m-portlet__body">
@@ -68,7 +74,7 @@
                                             <input type="hidden" name="lop_{{ $item->id }}" value="{{ $item->lop_id }}"></td>
                                         <td>{{ $item->ma_hoc_sinh }}</td>
                                         <td>{{ $item->ten }}</td>
-                                        <td><img src="{{ $item->avatar }}" alt="avatar"  width="60" class="img-thumbnail"></td>
+                                        <td><img src="{{ $item->avatar }}" alt="avatar" data-name_avatar="{{ $item->ten }}" onerror="errorLoadAvatar(this)" width="60" class="img-thumbnail"></td>
                                         <td>{{ date_format($date,"d/m/Y") }}</td>
                                         <td><input type="radio" value="1" name="{{ $item->id }}" checked="true"></td>
                                         <td><input type="radio" value="2" name="{{ $item->id }}"></td>
@@ -88,7 +94,7 @@
                                             <input type="hidden" name="lop_{{ $item->id }}" value="{{ $item->lop_id }}"></td>
                                         <td>{{ $item->student->ma_hoc_sinh }}</td>
                                         <td>{{ $item->student->ten }}</td>
-                                        <td><img src="{{ $item->student->avatar }}" alt="avatar"  width="60" class="img-thumbnail"></td>
+                                        <td><img src="{{ $item->student->avatar }}" alt="avatar" data-name_avatar="{{ $item->student->ten }}" onerror="errorLoadAvatar(this)"  width="60" class="img-thumbnail"></td>
                                         <td>{{ date_format($date,"d/m/Y") }}</td>
                                         <td><input type="radio" value="1" name="{{ $item->id }}" {{ ($item->trang_thai == 1)?'checked':'' }}></td>
                                         <td><input type="radio" value="2" name="{{ $item->id }}" {{ ($item->trang_thai == 2)?'checked':'' }}></td>
@@ -151,7 +157,7 @@
 
 @endsection
 @section('script')
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- https://viblo.asia/p/tim-hieu-jquery-datatables-co-ban-trong-10-phut-07LKXp4eKV4 -->
 <script>
     $(document).ready(function () {
@@ -183,7 +189,44 @@
 				'_token': "{{ csrf_token() }}",
 				'data': JSON.stringify(data)
 			}, function(dt) {
-                location.reload()
+                if(dt.code == 288){
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+
+                Toast.fire({
+                icon: 'error',
+                title: 'Điểm danh thất bại'
+                })
+                setTimeout(function(){
+                    location.reload() 
+                },2000);
+            }else{
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+
+                Toast.fire({
+                icon: 'success',
+                title: 'Điểm danh thành công'
+                })
+            }
 			})
     }
 

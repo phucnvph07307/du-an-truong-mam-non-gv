@@ -91,6 +91,9 @@
                                 <center>
                                     <span class="m-form__help"></span>
                                     <h5 class="m--font-danger clock-timeout"></h5>
+									<div class="progress" style="height: 5px; width: 60%">
+										<div id="progressbar_timer" class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
                                 </center>
 								<div class="m-login__form-action">
 									<button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom m-login__btn">Cancel</button>
@@ -133,9 +136,11 @@
                 }
             }
             var s = 0;
+			var progressbar_width = 0;
             function start_timer(){
 				if(s < 1 ){
-					s = 60;
+					s = 120;
+					progressbar_width = 0;
 					timer();
 				}
             }
@@ -143,11 +148,13 @@
             function timer(){
 					sendOTP();
                     timeout = setInterval(function(){ 
+						    progressbar_width = progressbar_width + 0.5;
                             s--;
-                            let textSC = s.toString().length == 1 ? `(0${s.toString()}s)`: `(${s.toString()}s)`;
-                            document.querySelector('.clock-timeout').innerHTML = textSC;
+                            // let textSC = s.toString().length == 1 ? `(0${s.toString()}s)`: `(${s.toString()}s)`;
+							$('#progressbar_timer').css('width', `${progressbar_width}%`);
+                            // document.querySelector('.clock-timeout').innerHTML = textSC;
                             if(s == 0 ){
-                                document.querySelector('.clock-timeout').innerHTML = "...";
+                                // document.querySelector('.clock-timeout').innerHTML = "...";
                                 clearTimeout(timeout);
 								resetOTP();	
                             }

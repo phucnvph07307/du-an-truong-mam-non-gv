@@ -90,13 +90,14 @@
         </div>
     </div>
 </div>
-<div class="m-content">
+<div class="m-content" style="min-height: 528px">
     <div id="box-galary">
         <div class="grid-container" id="grid-container">
 
             @forelse ($data as $item)
             <div>
-                <a href="{{ route('album.show',['id'=>$item->id])}}"><img class='grid-item'
+                <span style="cursor: pointer" class="pull-right pr-2" data-id="{{$item->id}}" onclick="removeAlbum(this)">&#10006;</span>
+                <a target="_blank" href="{{ route('album.show',['id'=>$item->id])}}"><img class='grid-item'
                         src='{{isset($item->item_images[0]) ? asset($item->item_images[0]) : "" }}' alt=''></a>
                 <p>"{{ $item->title ? $item->title : '' }}"</p>
                 <i class="pull-right pr-1">{{ $item->created_at }}</i>
@@ -155,6 +156,7 @@
 @endsection
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     var err_title = ''
     $.ajaxSetup({
@@ -281,6 +283,41 @@
                     `;
                 });
                 $('#grid-container').html(content);
+            })
+    }
+
+    function removeAlbum(e){
+        Swal.fire({
+                title: 'Bạn muốn xóa Album này',
+                icon: 'warning',
+                showCancelButton: false,
+                showCloseButton: true,
+                confirmButtonText: 'Yes, Xóa Album!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post("{{ route('album.removeAlbum') }}", {
+                        id: e.getAttribute('data-id'),
+                    }).then(res => {
+                        if (res.data.code == 1) {
+                          const Toast = Swal.mixin({
+                              toast: true,
+                              position: 'top-end',
+                              showConfirmButton: false,
+                              timer: 1000,
+                              timerProgressBar: true,
+                              didOpen: (toast) => {
+                                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                              }
+                          })
+                          Toast.fire({
+                              icon: 'success',
+                              title: 'Đã xóa Album'
+                          })
+                          e.parentElement.remove();
+                        }
+                    })
+                }
             })
     }
 

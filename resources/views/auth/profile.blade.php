@@ -16,7 +16,7 @@
 											<div class="m-card-profile__pic">
 												<div class="image-input image-input-outline image-input-circle" id="kt_image_3">
 													<div class="image-input-wrapper"
-														style="background-image: url('{{ Auth::user()->avatar}}')">
+														style="background-image: url('{{ Auth::user()->avatar}}'), url('https://ui-avatars.com/api/?name={{ Auth::user()->name }}&background=random')">
 													</div>
 													<label
 														class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"

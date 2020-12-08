@@ -4,7 +4,7 @@
 			NProgress.start();
 			setTimeout(function() { NProgress.done(); $('.fade').removeClass('out'); }, 2000);
 
-			if("{{ Illuminate\Support\Facades\Auth::user()->profile->lop_id }}"){
+			if("{{ Illuminate\Support\Facades\Auth::user()->profile->lop_id != 0 || Illuminate\Support\Facades\Auth::user()->profile->lop_id != null}}" ){
 				$('.isClass').removeClass("d-none");
 			}
 

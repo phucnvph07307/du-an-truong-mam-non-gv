@@ -40,7 +40,7 @@
     font-size: 1rem;
     color: #404040;
     font-family: Montserrat, sans-serif;
-    background-image: linear-gradient(to bottom right, #ff9eaa 0% 10%, #e860ff 95% 100%);
+    /* background-image: linear-gradient(to bottom right, #ff9eaa 0% 10%, #e860ff 95% 100%); */
  }
 
 </style>
@@ -64,7 +64,7 @@
                         <!--begin::Portlet-->
                         <div class="m-portlet m-portlet--tab drop-me" data-toggle="popover" title="Thông tin cá nhân">
                             <div class="card">
-                            <div class="card-image" style="background-image: url('{{ $item->avatar}}');">
+                            <div class="card-image" style="background-image: url('{{ $item->avatar}}'), url('https://ui-avatars.com/api/?name={{$item->ten}}&background=random');">
                                 </div>
                                 <div class="card-text">
                                     {{ $item->ten}}
@@ -178,8 +178,8 @@
 
  $( ".item-info" ).on( "click", function( ) {
     let data = JSON.parse($(this).attr('data'));
-    
-    $('#info-avatar').attr('src',data.avatar);
+    let avatar = data.avatar ? data.avatar : "https://ui-avatars.com/api/?name=" + data.ten + "&background=random";
+    $('#info-avatar').attr('src',avatar);
     $("#info-name").text(data.ten);
     $("#info-email").text(data.email_dang_ky);
     console.log(data);

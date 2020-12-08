@@ -16,9 +16,12 @@ class CheckClass
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::user()->profile->lop_id) {
+       if(Auth::user()->profile == null){
+            return redirect('logout');
+        }elseif (Auth::user()->profile->lop_id == null && Auth::user()->profile->lop_id == 0) {
             return redirect('profile');
+        }else{
+            return $next($request);
         }
-        return $next($request);
     }
 }

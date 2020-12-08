@@ -197,6 +197,12 @@
                 </thead>
                 
                 <tbody>
+                    <script>
+                        function errorLoadAvatar(e){
+                            let ten = e.getAttribute('data-ten');
+                            e.setAttribute('src', "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png");
+                        }
+                    </script>
                     @php 
                     $i = 1;
                     @endphp
@@ -205,18 +211,14 @@
                    <tr>
                     
                     <th scope="row">{{$i++}}</th>
-                   <td>{{$item->ma_hoc_sinh}} <input type="hidden" name="hoc_sinh_id" value="{{$item->id}}"></td>
-                    @if ($item->avatar == "")
-                        <td><img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                                height="100px" width="85px" alt=""></td>
-                        @else
-                        <td><img src="{{ Storage::url($item->avatar)}}" height="90px" width="80px" alt=""></td>
-                        @endif
+                    <td>{{$item->ma_hoc_sinh}} <input type="hidden" name="hoc_sinh_id" value="{{$item->id}}"></td>
+                    <td><img width="70px" height="70px" src="{{ $item->avatar }}" onerror="errorLoadAvatar(this)" data-ten="{{ $item->ten }}"></td>
                     <td>{{$item->ten}}</td>
                     <td>
                         <div class="form-group m-form__group">
                             <div class="m-input-icon m-input-icon--left m-input-icon--right">
-                                <input type="text" name="chieu_cao" class="form-control m-input m-input--pill m-input--air">
+                                <input type="text" name="chieu_cao" class="form-control m-input m-input--pill m-input--air" 
+                                onkeypress="return isNumberKey(event)" maxlength="5">
                                 <span class="m-input-icon__icon m-input-icon__icon--left"><span><i class="la la-eyedropper"></i></span></span>
                             </div>
                         </div>
@@ -224,7 +226,8 @@
                     <td>
                         <div class="form-group m-form__group">
                             <div class="m-input-icon m-input-icon--left m-input-icon--right">
-                                <input type="text" name="can_nang" class="form-control m-input m-input--pill m-input--air">
+                                <input type="text" name="can_nang" class="form-control m-input m-input--pill m-input--air" 
+                                onkeypress="return isNumberKey(event)" maxlength="5">
                                 <span class="m-input-icon__icon m-input-icon__icon--left"><span><i class="la la-eyedropper"></i></span></span>
                             </div>
                         </div>
@@ -295,5 +298,12 @@
        })
       
     }
+
+    function isNumberKey(evt){
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode > 31 && (charCode < 48 || charCode > 57))
+                    return false;
+                return true;
+    } 
 </script>
 @endsection

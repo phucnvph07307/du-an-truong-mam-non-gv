@@ -1,8 +1,8 @@
 <?php
 return [
     'key_firebase' => 'AAAA0i5VEtw:APA91bGn6K6XM-GK2RHqFVi7W3Iz3JqLcCrz7wgmfI2Ab2TcKWn1fzdyDJumPtmEaR7NP2udSTBEGKbhIyuO46jPF_hrB9MSPkgo9KnO-mqBy6kAmNtPFq60hLUAUVwT8Ul_5LWvWUvB',
-    'key_servesms' => 'b7a31573474885831eaf2eff385603824b7e1c71',
-    'devices_servesms' => '1952|0',
+    'key_servesms' => 'fcb73f2e5223742deac6eff10997c8a58755e956',
+    'devices_servesms' => '2063|0',
     'DB_HOST_STORAGE' => "http://127.0.0.1:8000",
     'paginate_size' => [
         'default' => 10,

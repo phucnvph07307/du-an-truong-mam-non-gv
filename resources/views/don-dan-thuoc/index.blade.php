@@ -843,7 +843,7 @@
         $(modal_show).modal('show')
     });
     const guiPhanHoi = (id_don) =>{
-        $('#preload').css('display','block')
+        // $('#preload').css('display','block')
         var class_phan_hoi = 'noi_dung_phan_hoi_'+id_don
         axios.post(url_gui_phan_hoi_dan_thuoc,{
             'don_dan_thuoc_id' : id_don,
@@ -853,6 +853,7 @@
         })
         .then(function (response) {
             // handle success
+        // $('#preload').css('display','none')
            
             console.log(response);
         })

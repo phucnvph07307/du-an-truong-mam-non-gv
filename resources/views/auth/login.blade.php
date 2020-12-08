@@ -142,7 +142,7 @@
     <script src="{!! asset('assets/demo/base/scripts.bundle.js') !!}" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.min.js"></script>
     <!--end::Global Theme Bundle -->
-    <script src="{!! asset('phao_hoa/phao_hoa.js') !!}"></script>
+    <!-- <script src="{!! asset('phao_hoa/phao_hoa.js') !!}"></script> -->
     <!--begin::Page Scripts -->
     <script src="{!! asset('assets/snippets/custom/pages/user/login.js') !!}" type="text/javascript"></script>
     <script>

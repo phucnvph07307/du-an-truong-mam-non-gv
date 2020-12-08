@@ -242,10 +242,10 @@
       };
       gallery.querySelectorAll('img').forEach(function (item) {
         item.classList.add('byebye');
-        if (item.complete) {
-            console.log(item.src);
-        }
-        else {
+        // if (item.complete) {
+        //     console.log(item.src);
+        // }
+        // else {
             item.addEventListener('load', function () {
                 var altura = getVal(gallery, 'grid-auto-rows');
                 var gap = getVal(gallery, 'grid-row-gap');
@@ -253,7 +253,7 @@
                 gitem.style.gridRowEnd = "span " + Math.ceil((getHeight(gitem) + gap) / (altura + gap));
                 item.classList.remove('byebye');
             });
-        }
+        // }
       });
       window.addEventListener('resize', resizeAll);
       gallery.querySelectorAll('.gallery-item .content').forEach(function (item) {

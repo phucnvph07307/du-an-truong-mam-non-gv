@@ -145,13 +145,13 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" >Chiều cao (cm)</span>
                                             </div>
-                                        <input type="text" name="chieu_cao" class="form-control"   value="{{$value->chieu_cao}}">
+                                        <input type="text" required name="chieu_cao" class="form-control"   value="{{$value->chieu_cao}}">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" >Cân nặng (kg)</span>
                                             </div>
-                                        <input type="text" name="can_nang" class="form-control"   value="{{$value->can_nang}}">
+                                        <input type="text" name="can_nang" class="form-control" required value="{{$value->can_nang}}">
                                         </div>
                                     </div>
                                 </div>

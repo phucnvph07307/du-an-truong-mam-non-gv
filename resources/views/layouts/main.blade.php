@@ -69,7 +69,7 @@
 					<!--start content -->
 					@yield('content')
 					<!--end content -->		
-					<div class="zalo-chat-widget" data-oaid="4538938343804913592" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="350" data-height="420"></div>
+					{{-- <div class="zalo-chat-widget" data-oaid="4538938343804913592" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="350" data-height="420"></div> --}}
 
 				</div>
 			</div>
@@ -111,7 +111,7 @@
 		{{--  endscript  --}}
 		
 		@yield('script')
-     <script src="https://sp.zalo.me/plugins/sdk.js"></script>
+     {{-- <script src="https://sp.zalo.me/plugins/sdk.js"></script> --}}
 	 <!-- <script type="text/javascript" src="{{asset('pjax/jquery.pjax.js')}}"></script> -->
 	 <!-- <script type="text/javascript" src="{{asset('pjax/setup-pjax.js')}}"></script> -->
 	</body>

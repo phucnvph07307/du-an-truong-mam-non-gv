@@ -6,7 +6,7 @@
 	<!-- begin::Head -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Reset pass</title>
+		<title>Đổi mật khẩu</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -52,7 +52,7 @@
 						</div>
 						<div class="m-login__signin">
 							<div class="m-login__head">
-								<h3 class="m-login__title">Reset Password</h3>
+								<h3 class="m-login__title">Thay đổi mật khẩu</h3>
 							</div>
                             <form class="m-login__form m-form" method="POST" action="{{ route('password.update') }}">
                                 @csrf
@@ -74,7 +74,7 @@
 								</div>
 								<div class="form-group m-form__group">
                                     <input id="password" type="password" class="form-control m-input m-login__form-input--last @error('password') is-invalid @enderror"
-                                     name="password"  autocomplete="new-password" placeholder="Password">
+                                     name="password"  autocomplete="new-password" placeholder="Mật khẩu">
                                
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -83,7 +83,7 @@
                                     @enderror
 								</div>
                                 <div class="form-group m-form__group">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password"  autocomplete="new-password">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Xác nhận mật khẩu"  autocomplete="new-password">
                                     @error('password_confirmation')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@
 								</div>
 				
 								<div class="m-login__form-action">
-									<button type="submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary">Reset Password</button>
+									<button type="submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary">Thay đổi</button>
 								</div>
 							</form>
 						</div>

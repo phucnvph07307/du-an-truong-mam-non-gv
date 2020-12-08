@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Repositories\GiaoVien\GiaoVienRepository;
 use App\Repositories\HocSinh\HocSinhRepository;
 use App\Repositories\SucKhoe\SucKhoeRepository;
+use App\Http\Requests\SucKhoe\UpdateSucKhoe;
 class SucKhoeController extends Controller
 {   
     protected $GiaoVienRepository;
@@ -88,7 +89,7 @@ class SucKhoeController extends Controller
         return view('suc-khoe.edit', compact('data', 'id', 'dot_suc_khoe', 'chieu_cao', 'can_nang'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateSucKhoe $request, $id)
     {   
         $data = $request->all();
         $this->SucKhoeRepository->updateSk($data, $id);
