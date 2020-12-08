@@ -73,6 +73,7 @@ Route::group(['middleware' => ['web', 'auth', 'checkClass']], function () {
         Route::post('/store', 'SucKhoeController@store')->name('quan-suc-khoe-store');
         Route::get('/edit/{id}', 'SucKhoeController@edit')->name('quan-suc-khoe-edit');
         Route::post('/update/{id}', 'SucKhoeController@update')->name('quan-suc-khoe-update');
+        Route::post('/show-dot-suc-khoe', 'SucKhoeController@ShowSucKhoeTheoDot')->name('show-dot-suc-khoe');
     });
 
     Route::prefix('danh-sach-lop')->group(function () {
