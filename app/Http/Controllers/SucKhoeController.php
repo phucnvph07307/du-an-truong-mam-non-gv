@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Repositories\GiaoVien\GiaoVienRepository;
 use App\Repositories\HocSinh\HocSinhRepository;
 use App\Repositories\SucKhoe\SucKhoeRepository;
+use App\Http\Requests\SucKhoe\UpdateSucKhoe;
 class SucKhoeController extends Controller
 {   
     protected $GiaoVienRepository;
@@ -25,12 +26,20 @@ class SucKhoeController extends Controller
     }
     public function index()
     {
-        $params = request()->all();
+        
         $dot = $this->SucKhoeRepository->getDotMoiNhat();
-        $hoc_sinh = $this->HocSinhRepository->getHocSinhInClassTheoDot($dot->id, $params);
-        $hoc_sinh_theo_lop = $this->HocSinhRepository->getHocSinhInClass();
-        $getDotAll = $this->SucKhoeRepository->getDotKhamSK();
-        return view('suc-khoe.index', compact('hoc_sinh', 'dot', 'hoc_sinh_theo_lop', 'getDotAll', 'params'));
+        if($dot){
+            $params = request()->all();
+            $hoc_sinh = $this->HocSinhRepository->getHocSinhInClassTheoDot($dot->id, $params);
+            $hoc_sinh_theo_lop = $this->HocSinhRepository->getHocSinhInClass();
+            $getDotAll = $this->SucKhoeRepository->getDotKhamSK();
+            $view = view('suc-khoe.index', compact('hoc_sinh', 'dot', 'hoc_sinh_theo_lop', 'getDotAll', 'params'));
+        }
+        else{
+            $view = view('suc-khoe.index');
+        }
+        
+        return $view;
         
     }
     public function checkdot()
@@ -73,17 +82,25 @@ class SucKhoeController extends Controller
         $chieu_cao = [];
         $can_nang = [];
         foreach($data as $item){
-            array_unshift($dot_suc_khoe, $item->ten_dot);
-            array_unshift($chieu_cao, $item->chieu_cao);
-            array_unshift($can_nang, $item->can_nang);
+            array_push($dot_suc_khoe, $item->ten_dot);
+            array_push($chieu_cao, $item->chieu_cao);
+            array_push($can_nang, $item->can_nang);
         }
         return view('suc-khoe.edit', compact('data', 'id', 'dot_suc_khoe', 'chieu_cao', 'can_nang'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateSucKhoe $request, $id)
     {   
         $data = $request->all();
         $this->SucKhoeRepository->updateSk($data, $id);
         return redirect()->back()->with('thongbaoedit','66');
+    }
+
+    public function ShowSucKhoeTheoDot(Request $request){
+        $params = "";
+        $request = $request->all();
+        $id = $request['id'];
+        $suc_khoe_hoc_sinh = $this->HocSinhRepository->getHocSinhInClassTheoDot($id, $params);
+        return $suc_khoe_hoc_sinh;
     }
 }

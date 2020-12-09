@@ -54,7 +54,6 @@ class SucKhoeRepository extends BaseRepository
              'dot_kham_suc_khoe.thoi_gian'
              )
         ->where('suc_khoe.hoc_sinh_id', $id)
-        ->orderBy('suc_khoe.id', 'desc')
         ->get();
         
         return $query;
