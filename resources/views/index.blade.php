@@ -439,25 +439,7 @@
             </div>
           </div>
           <div class="m-portlet__head-tools">
-            <ul
-              class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-pills--btn-sm"
-              role="tablist">
-              <li class="nav-item m-tabs__item">
-                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_widget4_tab1_content" role="tab">
-                  Tron
-                </a>
-              </li>
-              <li class="nav-item m-tabs__item">
-                <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget4_tab2_content" role="tab">
-                  Week
-                </a>
-              </li>
-              <li class="nav-item m-tabs__item">
-                <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget4_tab3_content" role="tab">
-                  Month
-                </a>
-              </li>
-            </ul>
+            
           </div>
         </div>
         <div class="m-portlet__body">

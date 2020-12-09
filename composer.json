@@ -12,13 +12,14 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
+        "jacobbennett/pjax": "~1.0",
         "kreait/firebase-php": "^4.0",
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.2",
         "quanvt/laravel-firebase-sync": "^1.0",
         "tightenco/ziggy": "^0.9.4",
-        "jacobbennett/pjax": "~1.0"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

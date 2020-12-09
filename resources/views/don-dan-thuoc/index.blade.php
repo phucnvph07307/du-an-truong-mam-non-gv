@@ -196,7 +196,7 @@
                                 <div class="modal-body">
                                     <div class="m-portlet m-portlet--full-height ">
 
-                                        <div class="m-portlet__body">
+                                        <div class="m-portlet">
                                             <!--begin::Content-->
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="m_widget5_tab1_content"
@@ -204,10 +204,10 @@
 
                                                     <!--begin::m-widget5-->
                                                     <div class="m-widget5">
-                                                        <div class="m-widget5__item">
-                                                            <div class="m-widget5__content">
-                                                                <div class="m-widget5__pic">
-                                                                    <img class="m-widget7__img"
+                                                        <div class="m-widget5__item pl-3 pt-4">
+                                                            <div class="m-widget5__content ">
+                                                                <div class="m-widget5__pic ">
+                                                                    <img class="m-widget7__img "
                                                                         src="../../assets/app/media/img//products/product6.jpg"
                                                                         alt="">
                                                                 </div>
@@ -251,7 +251,7 @@
                                             <!--end::Content-->
                                         </div>
                                     </div>
-                                    <div class="m-portlet m-portlet--full-height ">
+                                    <div class="m-portlet m-portlet--full-height">
 
                                         <div class="m-portlet">
                                             <div class="m-portlet__head">
@@ -313,63 +313,180 @@
                                     </div>
 
 
-                                    <div class="m-portlet m-portlet--full-height ">
-
-                                        <div class="m-portlet__body">
-                                            <div class="m-widget3">
-                                                <div class="m-widget3__item">
-                                                    <div class="m-widget3__header">
-                                                        <div class="m-widget3__user-img">
-                                                            <img class="m-widget3__img"
-                                                                src="../../assets/app/media/img/users/user1.jpg" alt="">
-                                                        </div>
-                                                        <div class="m-widget3__info">
-                                                            <span class="m-widget3__username">
-                                                                Cô giáo: Nguyễn Phương Lan
-                                                            </span><br>
-                                                            <span class="m-widget3__time">
-                                                                2 day ago
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="m-widget3__body">
-                                                        <p class="m-widget3__text">
-
-                                                            doloremagna aliquam erat volutpat.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="m-widget3__item">
-                                                    <div class="m-widget3__header">
-                                                        <div class="m-widget3__user-img">
-                                                            <img class="m-widget3__img"
-                                                                src="../../assets/app/media/img/users/user4.jpg" alt="">
-                                                        </div>
-                                                        <div class="m-widget3__info">
-                                                            <span class="m-widget3__username">
-                                                                Phụ Huynh: Nguyễn Văn Nam
-                                                            </span><br>
-                                                            <span class="m-widget3__time">
-                                                                1 day ago
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="m-widget3__body">
-                                                        <p class="m-widget3__text">
-                                                            Lorem ipsum dolor sit amet,consectetuer edipiscing
-
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" cols="100" rows="5"
-                                                        placeholder="... Gửi phản hồi"></textarea>
+                                    <div class="m-portlet  m-portlet--full-height ">
+                                        <div class="m-portlet__head">
+                                            <div class="m-portlet__head-caption">
+                                                <div class="m-portlet__head-title">
+                                                    <h3 class="m-portlet__head-text">
+                                                        Recent Activities
+                                                    </h3>
                                                 </div>
                                             </div>
+                                            <div class="m-portlet__head-tools">
+                                                <ul class="m-portlet__nav">
+                                                    <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                                                        <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
+                                                            <i class="la la-ellipsis-h m--font-brand"></i>
+                                                        </a>
+                                                        <div class="m-dropdown__wrapper">
+                                                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                            <div class="m-dropdown__inner">
+                                                                <div class="m-dropdown__body">
+                                                                    <div class="m-dropdown__content">
+                                                                        <ul class="m-nav">
+                                                                            <li class="m-nav__section m-nav__section--first">
+                                                                                <span class="m-nav__section-text">Quick
+                                                                                    Actions</span>
+                                                                            </li>
+                                                                            <li class="m-nav__item">
+                                                                                <a href="" class="m-nav__link">
+                                                                                    <i class="m-nav__link-icon flaticon-share"></i>
+                                                                                    <span class="m-nav__link-text">Activity</span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="m-nav__item">
+                                                                                <a href="" class="m-nav__link">
+                                                                                    <i class="m-nav__link-icon flaticon-chat-1"></i>
+                                                                                    <span class="m-nav__link-text">Messages</span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="m-nav__item">
+                                                                                <a href="" class="m-nav__link">
+                                                                                    <i class="m-nav__link-icon flaticon-info"></i>
+                                                                                    <span class="m-nav__link-text">FAQ</span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="m-nav__item">
+                                                                                <a href="" class="m-nav__link">
+                                                                                    <i class="m-nav__link-icon flaticon-lifebuoy"></i>
+                                                                                    <span class="m-nav__link-text">Support</span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="m-nav__separator m-nav__separator--fit">
+                                                                            </li>
+                                                                            <li class="m-nav__item">
+                                                                                <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">Cancel</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="m-portlet__body">
+                                            
+                                                <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light m-scrollable m-scroller ps ps--active-y" data-scrollable="true" data-height="380" data-mobile-height="300" style="height: 380px; overflow: hidden;">
+                                                    <div class="m-messenger__messages m-scrollable">
+                                                        <div class="m-messenger__wrapper">
+                                                            <div class="m-messenger__message m-messenger__message--in">
+                                                                <div class="m-messenger__message-pic">
+                                                                    <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                                                </div>
+                                                                <div class="m-messenger__message-body">
+                                                                    <div class="m-messenger__message-arrow"></div>
+                                                                    <div class="m-messenger__message-content">
+                                                                        <div class="m-messenger__message-username">
+                                                                            Megan wrote
+                                                                        </div>
+                                                                        <div class="m-messenger__message-text">
+                                                                            Hi Bob. What time will be the meeting ?
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="m-messenger__wrapper">
+                                                            <div class="m-messenger__message m-messenger__message--out">
+                                                                <div class="m-messenger__message-body">
+                                                                    <div class="m-messenger__message-arrow"></div>
+                                                                    <div class="m-messenger__message-content">
+                                                                        <div class="m-messenger__message-text">
+                                                                            Hi Megan. It's at 2.30PM
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="m-messenger__wrapper">
+                                                            <div class="m-messenger__message m-messenger__message--in">
+                                                                <div class="m-messenger__message-pic">
+                                                                    <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                                                </div>
+                                                                <div class="m-messenger__message-body">
+                                                                    <div class="m-messenger__message-arrow"></div>
+                                                                    <div class="m-messenger__message-content">
+                                                                        <div class="m-messenger__message-username">
+                                                                            Megan wrote
+                                                                        </div>
+                                                                        <div class="m-messenger__message-text">
+                                                                            Will the development team be joining ?
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="m-messenger__wrapper">
+                                                            <div class="m-messenger__message m-messenger__message--out">
+                                                                <div class="m-messenger__message-body">
+                                                                    <div class="m-messenger__message-arrow"></div>
+                                                                    <div class="m-messenger__message-content">
+                                                                        <div class="m-messenger__message-text">
+                                                                            Yes sure. I invited them as well
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="m-messenger__datetime">2:30PM</div>
+                                                        <div class="m-messenger__wrapper">
+                                                            <div class="m-messenger__message m-messenger__message--in">
+                                                                <div class="m-messenger__message-pic">
+                                                                    <img src="assets/app/media/img//users/user3.jpg" alt="" />
+                                                                </div>
+                                                                <div class="m-messenger__message-body">
+                                                                    <div class="m-messenger__message-arrow"></div>
+                                                                    <div class="m-messenger__message-content">
+                                                                        <div class="m-messenger__message-username">
+                                                                            Megan wrote
+                                                                        </div>
+                                                                        <div class="m-messenger__message-text">
+                                                                            Noted. For the Coca-Cola Mobile App project as well ?
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="m-messenger__wrapper">
+                                                            <div class="m-messenger__message m-messenger__message--out">
+                                                                <div class="m-messenger__message-body">
+                                                                    <div class="m-messenger__message-arrow"></div>
+                                                                    <div class="m-messenger__message-content">
+                                                                        <div class="m-messenger__message-text">
+                                                                            Yes, sure.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="m-messenger__seperator"><hr></div>
+                                                <div class="m-messenger__form">
+                                                    <textarea class="form-control m-input m-input--air m-input--pill" id="exampleTextarea" rows="3"></textarea>
+                                                    
+                                                </div>
+                                            <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 380px; right: 4px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 276px;"></div></div>
                                         </div>
                                     </div>
+
 
                                 </div>
 
