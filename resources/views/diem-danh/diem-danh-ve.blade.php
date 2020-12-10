@@ -180,7 +180,7 @@
                             </div>
                             <div class="form-group">
                                 @if ($curros->anh_nguoi_don_ho)
-                                    <img src="{{ $curros->anh_nguoi_don_ho }}" width="100%" alt="ảnh">
+                                    <img src="{{ $curros->anh_nguoi_don_ho }}" width="100%" alt="ảnh" height="500px">
                                 @endif
                             </div>
                         </div>
