@@ -13,7 +13,7 @@ class HoatDong extends Model
         'id_gv',
         'tuan',
         'lop_id',
-        'nam',
+        'id_nam_hoc',
         'link_file_hd',
         'type',
     ];

@@ -28,9 +28,8 @@ class SucKhoeRepository extends BaseRepository
 
     public function getDotMoiNhat()
     {   
-        $date_now = Carbon::now('Asia/Ho_Chi_Minh');
+        
         $query = DB::table('dot_kham_suc_khoe')
-        ->where('dot_kham_suc_khoe.thoi_gian', '<=', $date_now->toDateString())
         ->orderBy('id', 'desc')->limit(1)->first();
         return $query;
     }

@@ -50,6 +50,7 @@
                             <div class="container-sm">
                                 <div class="row">
                                 @foreach ($arr_hd as $key => $nam)
+                                
                                     <div class="col-md-3">
                                             <div  class="card-header mb-3">
                                                 <h5>Năm {{$key}}</h5>
