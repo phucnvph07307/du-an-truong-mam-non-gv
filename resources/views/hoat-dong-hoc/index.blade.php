@@ -50,13 +50,12 @@
                             <div class="container-sm">
                                 <div class="row">
                                 @foreach ($arr_hd as $key => $nam)
-                                
                                     <div class="col-md-3">
                                             <div  class="card-header mb-3">
                                                 <h5>Năm {{$key}}</h5>
                                             </div>
                                             @for ($i = 0; $i < count($arr_hd[$key]); $i++)
-                                              <a  onclick="oppenTabPdf('{{$arr_hd[$key][$i]->link_file_hd}}')" class="btn btn-primary text-light"> Tuần {{$arr_hd[$key][$i]->tuan}}</a>
+                                              <a target="_blank"  href ="{{$arr_hd[$key][$i]->link_file_hd}}" class="btn btn-primary text-light"> Tuần {{$arr_hd[$key][$i]->tuan}}</a>
                                             @endfor
                                     </div>
                                 @endforeach

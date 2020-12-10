@@ -71,4 +71,7 @@
         .dataTables_info{
                 display: none;
         }     
+        body{
+                font-family: Arial, Helvetica, sans-serif !important;
+        }
 </style>
