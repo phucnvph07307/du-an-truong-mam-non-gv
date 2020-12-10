@@ -10,6 +10,7 @@
           $countDonNghiHoc += $value->DonNghiHoc
                               ->where('ngay_bat_dau', '<=', date('Y-m-d'))
                               ->where('ngay_ket_thuc', '>=', date('Y-m-d'))
+                              ->where('lop_id', $lopHoc->id)
                               ->count();        
       }
 
@@ -17,6 +18,7 @@
           $countDonDanThuoc += $value->DonDanThuoc
                               ->where('ngay_bat_dau', '<=', date('Y-m-d'))
                               ->where('ngay_ket_thuc', '>=', date('Y-m-d'))
+                              ->where('lop_id', $lopHoc->id)
                               ->count();        
       }
     }
