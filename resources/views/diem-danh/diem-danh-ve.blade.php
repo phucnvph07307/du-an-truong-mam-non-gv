@@ -44,7 +44,7 @@
                                 <th>Bố Mẹ Đón</th>
                                 <th>Người Đón Hộ</th>
                                 <th>Nghỉ</th>
-                                <th>Thông tin</th>
+                                <th>Trả muộn</th>
                                 <th>Ghi chú</th>
 
                             </tr>
@@ -64,18 +64,24 @@
                                 <td>{{ $item->ten }}</td>
                                 <td><img src="{{ $item->avatar }}" alt="avatar" data-name_avatar="{{ $item->ten }}" onerror="errorLoadAvatar(this)"  width="60" class="img-thumbnail"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
-                                <td><input type="radio" value="1" name="{{ $item->id }}" checked="true"></td>
+                                {{-- <td><input type="radio" value="1" name="{{ $item->id }}" checked="true"></td>
                                 <td><input type="radio" value="2" name="{{ $item->id }}"></td>
-                                <td><input type="radio" value="3" name="{{ $item->id }}"></td>
+                                <td><input type="radio" value="3" name="{{ $item->id }}"></td> --}}
+                                @forelse (config('common.diem_danh_ve') as $key => $value)
                                 <td>
-                                    @foreach ($nguoi_don_ho as $curros)
-                                    @if ($curros->hoc_sinh_id == $item->id)
-                                    <input type="hidden" name="nguoi_don_ho{{ $item->id }}" value="{{ $curros->id }}">
-                                    <i style="cursor: pointer" class="text-warning flaticon-exclamation-1" data-toggle="modal" data-target="{{ '#m_modal_'.$item->id}}"></i>
-                                        
+                                    <input type="radio" value={{ $value }} name="{{ $item->id }}" {{ $value == 1 ? 'checked' : ''}}>
+                                    @if ($key == 'nguoi_don_ho' || $value == 2)
+                                        @foreach ($nguoi_don_ho as $curros)
+                                        @if ($curros->hoc_sinh_id == $item->id)
+                                        <input type="hidden" name="nguoi_don_ho{{ $item->id }}" value="{{ $curros->id }}">
+                                        <i style="cursor: pointer" class="text-warning flaticon-exclamation-1" data-toggle="modal" data-target="{{ '#m_modal_'.$item->id}}"></i>
+                                            
+                                        @endif
+                                        @endforeach
                                     @endif
-                                    @endforeach
                                 </td>
+                                @empty
+                                @endforelse
                                 <td><textarea name="chu_thich_{{ $item->id }}"></textarea></td>
                             </tr>
                             @endforeach
@@ -95,22 +101,27 @@
                                 <td>{{ $item->student->ten }}</td>
                                 <td><img src="{{ $item->student->avatar }}" alt="avatar" data-name_avatar="{{ $item->student->ten }}" onerror="errorLoadAvatar(this)" width="60" class="img-thumbnail"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
-                                <td><input type="radio" value="1" name="{{ $item->id }}"
+                                {{-- <td><input type="radio" value="1" name="{{ $item->id }}"
                                         {{ ($item->trang_thai == 1)?'checked':'' }}></td>
                                 <td><input type="radio" value="2" name="{{ $item->id }}"
                                         {{ ($item->trang_thai == 2)?'checked':'' }}></td>
                                 <td><input type="radio" value="3" name="{{ $item->id }}"
-                                        {{ ($item->trang_thai == 3)?'checked':'' }}></td>
+                                        {{ ($item->trang_thai == 3)?'checked':'' }}></td> --}}
+                                @forelse (config('common.diem_danh_ve') as $key => $value)
                                 <td>
-                                    @foreach ($nguoi_don_ho as $curros)
-                                    @if ($curros->hoc_sinh_id == $item->hoc_sinh_id)
-                                    <input type="hidden" name="nguoi_don_ho{{ $item->hoc_sinh_id }}" value="{{ $curros->hoc_sinh_id }}">
-                                    <i style="cursor: pointer" class="text-warning flaticon-exclamation-1" data-toggle="modal" data-target="{{ '#m_modal_'.$item->hoc_sinh_id}}"></i>
-                                       
-                                        
+                                    <input type="radio" value={{ $value }} name="{{ $item->id }}" {{ $value == $item->trang_thai ? 'checked' : ''}}>
+                                    @if ($key == 'nguoi_don_ho' || $value == 2)
+                                        @foreach ($nguoi_don_ho as $curros)
+                                        @if ($curros->hoc_sinh_id == $item->hoc_sinh_id)
+                                        <input type="hidden" name="nguoi_don_ho{{ $item->hoc_sinh_id }}" value="{{ $curros->id }}">
+                                        <i style="cursor: pointer" class="text-warning flaticon-exclamation-1" data-toggle="modal" data-target="{{ '#m_modal_'.$item->hoc_sinh_id}}"></i>
+                                            
+                                        @endif
+                                        @endforeach
                                     @endif
-                                    @endforeach
                                 </td>
+                                @empty
+                                @endforelse
                                 <td><textarea name="chu_thich_{{ $item->id }}">{{ $item->chu_thich ? $item->chu_thich : '' }}</textarea></td>
                             </tr>
                             @endforeach
@@ -143,9 +154,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Thông tin người đón hộ - <h5
-                                    class="m-subheader__title ">Bé {{ $item->ten }}</h5>
-                            </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Thông tin người đón hộ</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -165,6 +174,9 @@
                                 <label for="message-text" class="form-control-label">Số CMND/TCC:</label>
                                 <input type="text" class="form-control"  value="{{ $curros->cmtnd }}"
                                     readonly>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control m-input m-input--solid" cols="117" rows="5">{{ $curros->ghi_chu }}</textarea>
                             </div>
                             <div class="form-group">
                                 @if ($curros->anh_nguoi_don_ho)
