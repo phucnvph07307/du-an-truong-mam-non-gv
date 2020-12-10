@@ -56,17 +56,17 @@ class DiemDanhDenController extends Controller
         $thoi_gian_hien_tai = strtotime($now);
 
         if($type == 1){
-            $thoi_gian_bat_dau = strtotime($now->format('Y-m-d') . " 07:00:00");
-            $thoi_gian_ket_thuc = strtotime($now->format('Y-m-d') . " 09:00:00");
-            if( $thoi_gian_bat_dau < $thoi_gian_hien_tai && $thoi_gian_hien_tai < $thoi_gian_ket_thuc){
+            // $thoi_gian_bat_dau = strtotime($now->format('Y-m-d') . " 07:00:00");
+            // $thoi_gian_ket_thuc = strtotime($now->format('Y-m-d') . " 09:00:00");
+            // if( $thoi_gian_bat_dau < $thoi_gian_hien_tai && $thoi_gian_hien_tai < $thoi_gian_ket_thuc){
                 $response = $this->DiemDanhDenRepository->createdOrUpdate($data, $type);
-            }
+            // }
         }else {
-            $thoi_gian_bat_dau = strtotime($now->format('Y-m-d') . " 13:00:00");
-            $thoi_gian_ket_thuc = strtotime($now->format('Y-m-d') . " 14:00:00");
-            if( $thoi_gian_bat_dau < $thoi_gian_hien_tai && $thoi_gian_hien_tai < $thoi_gian_ket_thuc){
+            // $thoi_gian_bat_dau = strtotime($now->format('Y-m-d') . " 13:00:00");
+            // $thoi_gian_ket_thuc = strtotime($now->format('Y-m-d') . " 14:00:00");
+            // if( $thoi_gian_bat_dau < $thoi_gian_hien_tai && $thoi_gian_hien_tai < $thoi_gian_ket_thuc){
                 $response = $this->DiemDanhDenRepository->createdOrUpdate($data, $type);
-            }
+            // }
         }
 
         return response()->json([
