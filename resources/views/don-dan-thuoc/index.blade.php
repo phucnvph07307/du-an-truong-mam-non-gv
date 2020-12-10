@@ -90,7 +90,7 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn xin nghỉ học bé
+                                        <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn dặn thuốc
                                             {{$item->HocSinh->ten}}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -177,11 +177,11 @@
                                                                 <tbody>
                                                                     @foreach ($item->ChiTietDonDanThuoc as $key =>
                                                                     $chi_tiet_don_thuoc)
-                                                                    <tr class="m-table__row--warning">
+                                                                    <tr class="">
 
                                                                         <th scope="row">{{$key +=1}}</th>
                                                                         <td>{{$chi_tiet_don_thuoc->ten_thuoc}}</td>
-                                                                        <td> <img
+                                                                        <td> <img style="width: 200px;"
                                                                                 src="{!! asset($chi_tiet_don_thuoc->anh) !!}"
                                                                                 alt="" srcset=""> </td>
                                                                         <td>{{$chi_tiet_don_thuoc->don_vi}}</td>
@@ -206,7 +206,7 @@
                                                 <div class="m-portlet__head-caption">
                                                     <div class="m-portlet__head-title">
                                                         <h3 class="m-portlet__head-text">
-                                                            Recent Activities
+                                                            Trao đổi đơn dặn thuốc
                                                         </h3>
                                                     </div>
                                                 </div>
@@ -303,8 +303,8 @@
                                         <div class="m-form__group form-group">
                                             <div class="m-radio-list">
                                                 <label class="m-checkbox m-checkbox--state-success">
-                                                    <input type="checkbox" /> Đã sử dụng
-                                                    <span></span>
+                                                    {{-- <input type="checkbox" /> Đã sử dụng --}}
+                                                    {{-- <span></span> --}}
                                                 </label>
                                             </div>
                                         </div>
@@ -351,7 +351,7 @@
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn xin nghỉ học bé
+                                            <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn dặn thuốc
                                                 {{$item->HocSinh->ten}}</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -438,11 +438,11 @@
                                                                     <tbody>
                                                                         @foreach ($item->ChiTietDonDanThuoc as $key =>
                                                                         $chi_tiet_don_thuoc)
-                                                                        <tr class="m-table__row--warning">
+                                                                        <tr class="">
     
                                                                             <th scope="row">{{$key +=1}}</th>
                                                                             <td>{{$chi_tiet_don_thuoc->ten_thuoc}}</td>
-                                                                            <td> <img
+                                                                            <td> <img style="width: 200px;"
                                                                                     src="{!! asset($chi_tiet_don_thuoc->anh) !!}"
                                                                                     alt="" srcset=""> </td>
                                                                             <td>{{$chi_tiet_don_thuoc->don_vi}}</td>
@@ -467,7 +467,7 @@
                                                     <div class="m-portlet__head-caption">
                                                         <div class="m-portlet__head-title">
                                                             <h3 class="m-portlet__head-text">
-                                                                Recent Activities
+                                                                Trao đổi đơn dặn thuốc
                                                             </h3>
                                                         </div>
                                                     </div>
@@ -564,8 +564,8 @@
                                             <div class="m-form__group form-group">
                                                 <div class="m-radio-list">
                                                     <label class="m-checkbox m-checkbox--state-success">
-                                                        <input type="checkbox" /> Đã sử dụng
-                                                        <span></span>
+                                                        {{-- <input type="checkbox" /> Đã sử dụng --}}
+                                                        {{-- <span></span> --}}
                                                     </label>
                                                 </div>
                                             </div>
@@ -587,7 +587,7 @@
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn xin nghỉ học bé Phạm
+                                    <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn dặn thuốc Phạm
                                         trung hiếu</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -679,21 +679,21 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr class="m-table__row--warning">
+                                                                <tr class="">
                                                                     <th scope="row">1</th>
                                                                     <td>Jhon</td>
                                                                     <td>Stone</td>
                                                                     <td>@jhon</td>
                                                                     <td>@jhon</td>
                                                                 </tr>
-                                                                <tr class="m-table__row--warning">
+                                                                <tr class="">
                                                                     <th scope="row">2</th>
                                                                     <td>Lisa</td>
                                                                     <td>Nilson</td>
                                                                     <td>@lisa</td>
                                                                     <td>@jhon</td>
                                                                 </tr>
-                                                                <tr class="m-table__row--warning">
+                                                                <tr class="">
                                                                     <th scope="row">3</th>
                                                                     <td>Larry</td>
                                                                     <td>the Bird</td>
@@ -777,8 +777,8 @@
                                     <div class="m-form__group form-group">
                                         <div class="m-radio-list">
                                             <label class="m-checkbox m-checkbox--state-success">
-                                                <input type="checkbox"> Đã sử dụng
-                                                <span></span>
+                                                {{-- <input type="checkbox"> Đã sử dụng --}}
+                                                {{-- <span></span> --}}
                                             </label>
                                         </div>
                                     </div>

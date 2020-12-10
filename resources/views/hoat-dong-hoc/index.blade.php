@@ -55,7 +55,7 @@
                                                 <h5>Năm {{$key}}</h5>
                                             </div>
                                             @for ($i = 0; $i < count($arr_hd[$key]); $i++)
-                                              <a  onclick="oppenTabPdf('{{$arr_hd[$key][$i]->link_file_hd}}')" class="btn btn-primary text-light"> Tuần {{$arr_hd[$key][$i]->tuan}}</a>
+                                              <a target="_blank"  href ="{{$arr_hd[$key][$i]->link_file_hd}}" class="btn btn-primary text-light"> Tuần {{$arr_hd[$key][$i]->tuan}}</a>
                                             @endfor
                                     </div>
                                 @endforeach

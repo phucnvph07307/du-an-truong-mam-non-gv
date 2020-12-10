@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Repositories\GiaoVien\GiaoVienRepository;
 use App\Repositories\HoatDong\HoatDongRepository;
+use App\Repositories\NamHocRepository;
+
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -25,16 +27,25 @@ class HoatDongController extends Controller
     protected $GiaoVienRepository;
     public function __construct(
         GiaoVienRepository $GiaoVienRepository,
-        HoatDongRepository $HoatDongRepository
+        HoatDongRepository $HoatDongRepository,
+        NamHocRepository $NamHocRepository
     )
     {
         $this->GiaoVienRepository = $GiaoVienRepository;
         $this->HoatDongRepository = $HoatDongRepository;
+        $this->NamHocRepository = $NamHocRepository;
     }
 
     public function index(){
         $date = Carbon::now(); // or $date = new Carbon()
-        $numberNextWeek = $date->weekOfYear + 1;
+        $id_nam_hoc = $this->NamHocRepository->maxID();
+        $nam_hoc_moi = $this->NamHocRepository->find($id_nam_hoc);
+        
+        //
+
+        $date_start = Carbon::createFromFormat('Y-m-d', $nam_hoc_moi->start_date);
+        $numberNextWeek = $date->weekOfYear -$date_start->weekOfYear ;
+        //
         $user_id = Auth::user()->id;
         $giao_vien = $this->GiaoVienRepository->getGVTheoIdUser($user_id);
         $ten_lop = $giao_vien->Lop->ten_lop;
@@ -45,11 +56,13 @@ class HoatDongController extends Controller
         for($i = 0; $i < count($namArr); $i++){
             $arr = [];
             for($j = 0 ; $j < count($hoat_dong) ; $j++){
-                if($hoat_dong[$j]->nam == $namArr[$i]->nam){
+                if($hoat_dong[$j]->id_nam_hoc == $namArr[$i]->id_nam_hoc){
+                    
                     array_push($arr,$hoat_dong[$j]);
                 }
             }
-            $arr_hd[$namArr[$i]->nam] = $arr;
+            $arr_hd[$this->NamHocRepository->find($namArr[$i]->id_nam_hoc)['name']] = $arr;
+            
         }
         return view('hoat-dong-hoc.index',compact('numberNextWeek','ten_lop','arr_hd'));
     }
@@ -92,8 +105,8 @@ class HoatDongController extends Controller
             'id_gv' => $giao_vien->id,
             'lop_id' => $giao_vien->lop_id,
             'tuan' => $request->tuan,
-            'nam' => $now->year,
-            'link_file_hd' => $link_file_pdf,
+            'id_nam_hoc' => $this->NamHocRepository->maxID(),
+            'link_file_hd' => $request->getSchemeAndHttpHost().'/'.$link_file_pdf,
             'type' => 1
         ];
         $this->HoatDongRepository->create($dateCreate);
