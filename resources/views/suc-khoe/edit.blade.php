@@ -96,8 +96,6 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Mã học sinh</th>
-                        <th>Họ tên</th>
                         <th>Đợt</th>
                         <th>Chiều cao</th>
                         <th>Cân nặng</th>
@@ -111,26 +109,12 @@
                     @foreach ($data as $key => $item)
                 <tr>
                     <th scope="row">{{$i++}}</th>
-                    <td>{{$item->ma_hoc_sinh}}</td>
-                    <td>{{$item->ten}}</td>
                     <td>{{$item->ten_dot}} - {{date("d/m/Y", strtotime($item->thoi_gian))}}</td>
                     
-                    @if($item->chieu_cao == 0)
-                    <td>
-                    <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded">Không có dữ liệu</span>
-                    </td>
-                    @else
-                    <td>{{$item->chieu_cao}} cm</td>
-                    @endif
-
-                    @if ($item->can_nang == 0)
-                    <td>
-                        <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded">Không có dữ liệu</span>
-                    </td>
-                    @else
-                    <td>{{$item->can_nang}} kg</td>
                     
-                    @endif
+                    <td>{{$item->chieu_cao}} cm</td>
+                   
+                    <td>{{$item->can_nang}} kg</td>
                     <td>
                         <a href="#">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal{{$key}}">Cập nhật</button>
@@ -161,13 +145,13 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" >Chiều cao (cm)</span>
                                             </div>
-                                        <input type="text" name="chieu_cao" class="form-control"   value="{{$value->chieu_cao}}">
+                                        <input type="text" required name="chieu_cao" class="form-control"   value="{{$value->chieu_cao}}">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" >Cân nặng (kg)</span>
                                             </div>
-                                        <input type="text" name="can_nang" class="form-control"   value="{{$value->can_nang}}">
+                                        <input type="text" name="can_nang" class="form-control" required value="{{$value->can_nang}}">
                                         </div>
                                     </div>
                                 </div>
@@ -233,10 +217,14 @@
                         
                         ],
                     backgroundColor: [
+                        @forEach($can_nang as $key => $item)
                         'rgba(255, 99, 132, 0.2)',
+                        @endforeach
                     ],
                     borderColor: [
+                        @forEach($can_nang as $key => $item)
                         'rgba(255, 99, 132, 1)',
+                        @endforeach
                     ],
                     borderWidth: 1
                 }
@@ -272,11 +260,14 @@
                         // 22,33  
                         ],
                     backgroundColor: [
-                       
-                        'rgba(75, 192, 192, 0.2)'
+                        @forEach($chieu_cao as $key => $item)
+                        'rgba(75, 192, 192, 0.2)',
+                        @endforeach
                     ],
                     borderColor: [
-                        'rgba(75, 192, 192, 1)'
+                        @forEach($chieu_cao as $key => $item)
+                        'rgba(75, 192, 192, 1)',
+                        @endforeach
                     ],
                     borderWidth: 1
                 }

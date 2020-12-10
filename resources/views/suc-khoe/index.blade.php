@@ -5,111 +5,36 @@
 @endsection
 @section('content')
 <div class="m-content">
-    <div class="row">
-        <div class="col-xl-12">
-            <!--begin::Portlet-->
-            <div class="m-portlet m-portlet--tab">
-                <div class="m-portlet__head">
-                    <div class="m-portlet__head-caption">
-                        <div class="m-portlet__head-title">
-                            <span class="m-portlet__head-icon m--hide">
-                                <i class="la la-gear"></i>
-                            </span>
-                            <h3 class="m-portlet__head-text">
-                                Bộ lọc
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div id="preload" class="preload-container text-center" style="display: none">
-                    <img id="gif-load" src="{!! asset('images/loading3.gif') !!}" alt="">
-                </div>
-                <div class="m-portlet__body">
-                    <form action="" method="get">
-                    <!--begin::Section-->
-                    <div class="m-section">
-                        <div class="m-section__content">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group m-form__group row">
-                                        <label class="col-lg-2 col-form-label">Học sinh</label>
-                                        <div class="col-lg-8">
-                                            <select class="form-control select2" multiple="multiple" name="ma_hoc_sinh[]">
-                                               
-                                                @foreach ($hoc_sinh_theo_lop as $item)
-                                                <option 
-                                                @if (isset($params['ma_hoc_sinh']))
-                                                    {{ ($params['ma_hoc_sinh'] == $item->ma_hoc_sinh) ? "selected" : "" }}
-                                                @endif
-                                                value="{{$item->ma_hoc_sinh}}">
-                                                {{$item->ten}} - {{$item->ma_hoc_sinh}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <div class="form-group m-form__group row">
-                                        <label for="" class="col-lg-2 col-form-label">Đợt</label>
-                                        <div class="col-lg-8">
-                                            <select class="form-control " name="dot_id">
-                                                
-                                                @foreach ($getDotAll as $item)
-                                                <option
-                                                @if (isset($params['dot_id']))
-                                                    {{ ($params['dot_id'] == $item->id) ? "selected" : "" }}
-                                                @else
-                                                    {{ ($dot->id == $item->id) ? "selected" : "" }}
-                                                @endif
-                                                value="{{$item->id}}">
-                                                {{$item->ten_dot}} - {{date("d/m/Y", strtotime($item->thoi_gian))}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-lg-2">
-                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                        </div>
-                    </div>
-                    <!--end::Section-->
-                </form>
+    
+    @if(isset($dot))
+    <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
+        <div class="col-lg-10">
+            <div class="form-group m-form__group row">
+                <div class="col-lg-10">
+                    <select class="form-control" id="DotKhamSucKhoe" name="dot_id">
+                        
+                        @foreach ($getDotAll as $item)
+                        <option
+                        @if (isset($params['dot_id']))
+                            {{ ($params['dot_id'] == $item->id) ? "selected" : "" }}
+                        @else
+                            {{ ($dot->id == $item->id) ? "selected" : "" }}
+                        @endif
+                        value="{{$item->id}}">
+                        {{$item->ten_dot}} - {{date("d/m/Y", strtotime($item->thoi_gian))}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
-
-            <!--end::Portlet-->
         </div>
-        
-    </div>
-    <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
-        <div class="col-lg-12" style="text-align: right">
-
-          
-                <button type="button" class="btn btn-info .bg-info" onclick="CheckDot()">Thêm mới</button>
-           
+        <div class="col-lg-2" style="text-align: right">
+            <button type="button" class="btn btn-info .bg-info" onclick="CheckDot()">Thêm mới</button>
         </div>
     </section>
-    <div id="thongbao"></div>
-    @if(count($hoc_sinh)==0)
-    <div class="m-alert m-alert--icon m-alert--icon-solid m-alert--outline alert alert-danger alert-dismissible fade show" role="alert">
-        <div class="m-alert__icon">
-            <i class="flaticon-exclamation-1"></i>
-            <span></span>
-        </div>
-        <div class="m-alert__text">
-            <strong>Thông báo!</strong> Đã có đợt sức khỏe mới nhất vui lòng thêm sức khỏe cho học sinh.
-        </div>
-        <div class="m-alert__close">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            </button>
-        </div>
-    </div>
     @endif
+    <div id="thongbao"></div>
+    
+    @if(isset($dot))
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
             <table class="table m-table m-table--head-bg-success">
@@ -120,19 +45,13 @@
                         <th>Mã học sinh</th>
                         <th>Họ tên</th>
                         <th>Ảnh</th>
-                        <th>Đợt</th>
+                       
                         <th>Chiều cao</th>
                         <th>Cân nặng</th>
                         <th>Chức năng</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <script>
-                        function errorLoadAvatar(e){
-                            let ten = e.getAttribute('data-ten');
-                            e.setAttribute('src', "https://ui-avatars.com/api/?name=" + ten + "&background=random");
-                        }
-                    </script>
+                <tbody id="show-table-suc-khoe">
                     @php
                     $i = !isset($_GET['page']) ? 1 : ($limit * ($_GET['page']-1) + 1);
                     @endphp
@@ -141,40 +60,14 @@
                         <th scope="row">{{$i++}}</th>
                         <td>{{$item->ma_hoc_sinh}}</td>
                         <td>{{$item->ten}}</td>
-                        <td><img width="70px" height="70px" src="{{ $item->avatar }}" onerror="errorLoadAvatar(this)" data-ten="{{ $item->ten }}"></td>
-                        <td>
-                            @if (isset($params['dot_id']) && $params['dot_id'] != null)
-                                @php
-                                    $date_params = "";
-                                    $dot_params = "";
-                                    foreach ($getDotAll as $key ) {
-                                        if ($key->id == $params['dot_id']) {
-                                            $date_params = date("d/m/Y", strtotime($key->thoi_gian));
-                                            $dot_params = $key->ten_dot;
-                                        break;
-                                        }
-                                    }
-                                    echo $dot_params." - ".$date_params;
-                                @endphp
-                            @else
-                            {{$dot->ten_dot}} - {{date("d/m/Y", strtotime($dot->thoi_gian))}}
-                            @endif
-                        </td>
-                        
-                        @if($item->chieu_cao == 0)
-                        <td>
-                        <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded">Không có dữ liệu</span>
-                        </td>
+                        @if ($item->avatar == "")
+                        <td><img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                                height="80px" width="75px" alt=""></td>
                         @else
+                        <td><img src="{{$item->avatar}}" height="100px" width="75px" alt=""></td>
+                        @endif           
                         <td>{{$item->chieu_cao}} cm</td>
-                        @endif
-                        @if ($item->can_nang == 0)
-                        <td>
-                            <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded">Không có dữ liệu</span>
-                        </td>
-                        @else
                         <td>{{$item->can_nang}} kg</td>
-                        @endif
                         <td>
                             <a href="{{route('quan-suc-khoe-edit', ['id' => $item->id])}}">
                             <button type="button" class="btn btn-primary">Chi tiết</button>
@@ -191,10 +84,23 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 @endsection
 @section('script')
-
+@if(isset($dot) && count($hoc_sinh)==0)
+    <script>
+        swal("Đã có đợt khám sức khỏe mới!","Vui lòng nhập đợt sức khỏe cho các bé","info")
+    </script>
+@endif
+@if(!isset($dot))
+<script>
+  var url_home = "{{route('home')}}"
+  swal("Chưa có đợt nào cả!","Vui lòng quay lại sau khi có đợt khám sức khỏe","error").then((result) =>{
+    window.location = url_home
+  })
+</script>
+@endif
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     $(document).ready(function(){
@@ -234,7 +140,40 @@
             
         })
     }
-   
+    var url_ShowDotSucKhoe = "{{route('show-dot-suc-khoe')}}"
+    var url_ChiTietSucKhoe = "{{route('quan-suc-khoe-edit', ['id'])}}"
+    $("#DotKhamSucKhoe").change(function(){
+        var id_dot = $('#DotKhamSucKhoe').val()
+        // console.log($("#DotKhamSucKhoe").val())
+        axios.post(url_ShowDotSucKhoe, {id: id_dot})
+        .then(function(response){
+            var content = ""
+            var i = 1
+            response.data.forEach(element => {
+                url_new = url_ChiTietSucKhoe.replace('id', element.id)
+                if(element.avatar == null){
+                    element.avatar = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                }
+                content+=
+                `
+                <tr>
+                    <th scope="row">${i++}</th>
+                    <td>${element.ma_hoc_sinh}</td>
+                    <td>${element.ten}</td>
+                    <td><img src=${element.avatar} height="90px" width="85px" alt=""></td>
+                    <td>${element.chieu_cao} cm</td>
+                    <td>${element.can_nang} kg</td>
+                    <td>
+                        <a href="${url_new}">
+                        <button type="button" class="btn btn-primary">Chi tiết</button>
+                        </a>
+                    </td>
+                </tr>
+                `
+            })
+            $("#show-table-suc-khoe").html(content)
+        })
+    })
 </script>
 
 @endsection

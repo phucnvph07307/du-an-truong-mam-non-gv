@@ -200,7 +200,7 @@
                     <script>
                         function errorLoadAvatar(e){
                             let ten = e.getAttribute('data-ten');
-                            e.setAttribute('src', "https://ui-avatars.com/api/?name=" + ten + "&background=random");
+                            e.setAttribute('src', "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png");
                         }
                     </script>
                     @php 
