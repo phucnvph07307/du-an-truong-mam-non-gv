@@ -106,7 +106,7 @@ class HoatDongController extends Controller
             'lop_id' => $giao_vien->lop_id,
             'tuan' => $request->tuan,
             'id_nam_hoc' => $this->NamHocRepository->maxID(),
-            'link_file_hd' => $request->getHttpHost().'/'.$link_file_pdf,
+            'link_file_hd' => $request->getSchemeAndHttpHost().'/'.$link_file_pdf,
             'type' => 1
         ];
         $this->HoatDongRepository->create($dateCreate);
