@@ -63,7 +63,7 @@
                                 <div class="m-widget3__item">
                                     <div class="m-widget3__header">
                                         <div class="m-widget3__user-img">
-                                            <img class="m-widget3__img" src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : 'https://ui-avatars.com/api/?name=' . Auth::user()->name . '&background=random' }}">
+                                            <img class="m-widget3__img" src="{{ Auth::user()->avatar ? Auth::user()->avatar : 'https://ui-avatars.com/api/?name=' . Auth::user()->name . '&background=random' }}">
                                         </div>
                                         <div class="m-widget3__info">
                                             <span class="m-widget3__username">

@@ -90,9 +90,9 @@
         </div>
     </div>
 </div>
-<div class="m-content" style="min-height: 528px">
-    <div id="box-galary">
-        <div class="grid-container" id="grid-container">
+<div class="m-content" >
+    <div id="box-galary" >
+        <div class="grid-container" id="grid-container" style="min-height: 650px">
 
             @forelse ($data as $item)
             <div>

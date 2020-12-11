@@ -46,6 +46,7 @@
                                 <th>Nghỉ</th>
                                 <th>Trả muộn</th>
                                 <th>Ghi chú</th>
+                                <th>Thông báo</th>
 
                             </tr>
                         </thead>
@@ -83,6 +84,7 @@
                                 @empty
                                 @endforelse
                                 <td><textarea name="chu_thich_{{ $item->id }}"></textarea></td>
+                                <td><i data-hoc_sinh_id={{$item->id}} onclick="sendNotify(this)" style="cursor: pointer; font-size: 2rem" class="send_notify_all text-warning flaticon-alarm"></i></td>
                             </tr>
                             @endforeach
                             @endif
@@ -123,6 +125,7 @@
                                 @empty
                                 @endforelse
                                 <td><textarea name="chu_thich_{{ $item->id }}">{{ $item->chu_thich ? $item->chu_thich : '' }}</textarea></td>
+                                <td><i data-hoc_sinh_id={{$item->hoc_sinh_id}} onclick="sendNotify(this)" style="cursor: pointer; font-size: 2rem" class="send_notify_all text-warning flaticon-alarm"></i></td>
                             </tr>
                             @endforeach
                             @endif
@@ -133,11 +136,20 @@
 
             <div class="m-separator m-separator--dashed"></div>
             <div class="col m--align-center">
-                <button onclick="submitData()" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air">
-                    <span>
-                        <span>Cập nhật</span>
-                    </span>
-                </button>
+                <div class="row">
+                    <div class="col-10">
+                        <button onclick="submitData()" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air">
+                            <span>
+                                <span>Cập nhật</span>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="col-2">
+                        <button onclick="sendAllNotify()" class="btn btn-warning m-btn m-btn--icon" >
+                            <i class="flaticon-alarm"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
            @php
                $modals = ($students != null && count($students) > 0) ? $students : $edit;
@@ -180,7 +192,7 @@
                             </div>
                             <div class="form-group">
                                 @if ($curros->anh_nguoi_don_ho)
-                                    <img src="{{ $curros->anh_nguoi_don_ho }}" width="100%" alt="ảnh" height="500px">
+                                    <img src="{{ $curros->anh_nguoi_don_ho }}" width="100%" height="600px" alt="ảnh">
                                 @endif
                             </div>
                         </div>
@@ -292,6 +304,66 @@
                 })
             }
         })
+    }
+
+    function sendNotify(e){
+        let check = $(e).hasClass("text-warning");
+        if(check){
+            console.log('...Đang chuẩn bị gửi thông báo điểm danh về chờ tý nhé!');
+            let tr = $(e).parents('tr');
+            let data_send = [{
+                'hoc_sinh_id': $(e).data('hoc_sinh_id'),
+                'trang_thai': tr.find('input[type=radio]:checked').val(),
+                'chu_thich': tr.find('textarea').val(),
+                'thoi_gian_don': moment().format('H:m:s, LL')
+            }];
+
+            axios.post("{{ route('send-notify-diem-danh-ve')}}",{
+            '_token': "{{ csrf_token() }}",
+            'data': JSON.stringify(data_send)
+            }).then(res => {
+                console.log(res.data);
+            })
+        }
+        e.classList.remove("text-warning","flaticon-alarm");
+        e.classList.add("text-success","flaticon-alarm-1");
+        return;
+    }
+
+    var flat = true;
+    function sendAllNotify(){
+        if(flat){
+            console.log('...Đang chuẩn bị gửi tất cả thông báo điểm danh về chờ tý nhé!');
+            flat = false;
+            var statusList = $('input[type=radio]:checked');
+            var data = [];
+            for (i = 0; i < statusList.length; i++) {
+                let tr    = $(statusList[i]).parents('tr')
+                let tag_i = $(statusList[i]).parents('tr').find('.send_notify_all');
+  
+                if(tag_i.hasClass("text-warning")){
+                    let std = {
+                        'hoc_sinh_id': tag_i.attr('data-hoc_sinh_id'),
+                        'trang_thai': tr.find('input[type=radio]:checked').val(),
+                        'chu_thich': tr.find('textarea').val(),
+                        'thoi_gian_don': moment().format('H:m:s, LL')
+                    }
+                data.push(std)
+                }
+            }   
+            let e = $('.send_notify_all');
+            for(let i = 0; i < e.length; i++ ){
+                e[i].classList.remove("text-warning","flaticon-alarm");
+                e[i].classList.add("text-success","flaticon-alarm-1");
+            }
+            axios.post("{{ route('send-notify-diem-danh-ve')}}",{
+            '_token': "{{ csrf_token() }}",
+            'data': JSON.stringify(data)
+            }).then(res => {
+                console.log(res.data);
+            })
+        }
+        return;
     }
 
 </script>
