@@ -9,7 +9,7 @@ class ThongBao extends Model
     protected $table = "thong_bao";
 
     protected $fillable = [
-        'thong_bao_id',
+        'thongbao_id',
         'user_id',
     ];
 

@@ -7,10 +7,12 @@ use App\Repositories\NoiDungThongBaoRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Jobs\JobGuiThongBao;
+use App\Jobs\JobGuiThongBaoDiemDanhVe;
 use App\Repositories\GiaoVien\GiaoVienRepository;
 use App\Repositories\NotificationRepository;
 use App\Models\Notification;
 use App\Models\NoiDungThongBao;
+use App\Models\HocSinh;
 
 class ThongBaoController extends Controller
 {
@@ -157,6 +159,18 @@ class ThongBaoController extends Controller
 
         return response()->json([
             'message' => 'Xóa thành công',
+            'code' => 201,
+        ], 201);
+    }
+
+    public function sendNotifyDiemDanhVe(Request $request)
+    {
+        $listHocSinh = json_decode($request->data);
+
+        JobGuiThongBaoDiemDanhVe::dispatch($listHocSinh, Auth::id(), $this->NotificationRepository)->onQueue('giao_vien');
+        
+        return response()->json([
+            'message' => 'Gửi thông báo điểm danh thành công',
             'code' => 201,
         ], 201);
     }
