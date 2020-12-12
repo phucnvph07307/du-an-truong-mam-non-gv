@@ -59,19 +59,20 @@ class JobGuiThongBaoDiemDanhVe implements ShouldQueue
             ]);
             $thongbao_id = ThongBao::insertGetId([
                 'thongbao_id' => $noidung_thongbao_id,
-                'user_id'      => $item->hoc_sinh_id
+                'user_id'      => $hoc_sinh->user_id
             ]);
 
             $data_thong_bao = [
                 'device'    => $hoc_sinh->User->device,
                 'title'     => 'Thông báo điểm danh về',
                 'content'   => $content,
-                'user_id'   => $item->hoc_sinh_id,
+                'user_id'   => $hoc_sinh->user_id,
+                'id_hs'     => $item->hoc_sinh_id,
                 'role'      => 3,
                 'auth_id'   => 0,
                 'route'     => json_encode([
-                    'name_route' => 'thong_bao_diem_danh_ve',
-                    'id'         => $thongbao_id
+                    'name_route' => 'ShowThongBao',
+                    'id'         => $noidung_thongbao_id
                 ])
             ];
             Notification::create($data_thong_bao);
