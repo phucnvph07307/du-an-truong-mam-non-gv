@@ -136,13 +136,14 @@ class DonDanThuocController extends Controller
         $this->NotificationRepository->create($thongbao);
         // dd($thongbao);
         $data_thong_bao['device'] = $don_thuoc->HocSinh->user->device;
-        $data_thong_bao['title'] = 'Giáo viên đã phản hồi về đơn dặn thuốc của bạn';
+        $data_thong_bao['title'] =  $thong_tin_nguoi_nhan['ten']. ': giáo viên đã phản hồi về đơn dặn thuốc của bạn';
         $data_thong_bao['content'] = $noi_dung;
         $data_thong_bao['route'] = [
             'name_route' => 'detail_medicine',
-            'id' => $don_thuoc->id
+            'id' => $don_thuoc->id,
+            'id_hs' => $thong_tin_nguoi_nhan['id'] 
         ];
-       
+        // dd($data_thong_bao);
         $this->NotificationRepository->notificationApp([$data_thong_bao]);
         return 'thành công';
     }
