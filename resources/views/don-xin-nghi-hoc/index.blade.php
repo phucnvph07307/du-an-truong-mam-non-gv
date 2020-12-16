@@ -42,6 +42,7 @@
                                         <th>STT</th>
                                         <th>Mã số</th>
                                         <th>Họ và Tên</th>
+                                        <th>Trạng thái</th>
                                         <th>Chi tiết</th>
                                     </tr>
                                 </thead>
@@ -52,6 +53,15 @@
                                         <td>{{$key +=1}}</td>
                                         <td>{{$item->HocSinh->ma_hoc_sinh}}</td>
                                         <td>{{$item->HocSinh->ten}}</td>
+                                        <td>
+                                            @if ($item->trang_thai == 1)
+                                            <button type="button" class="btn btn-success">Xác nhận</button>
+                                            @else
+                                            <button type="button" class="btn btn-danger">Chưa xác nhận</button>
+                                            @endif
+                                            
+                                        </td>
+
                                         <td><button type="button" class="btn btn-warning" data-toggle="modal"
                                                 data-target="#m_modal_{{$item->id}}">Chi tiết</button></td>
                                     </tr>
@@ -97,9 +107,21 @@
                                                     readonly>{{$item->noi_dung}}</textarea>
                                             </div>
                                         </div>
-                                        <div class="modal-footer pull-center">
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Xác
+                                        <div class="modal-footer trang_thai pull-center">
+                                            @if ($item->trang_thai==0)
+                                            <div class="m-form__group form-group">
+                                                <div class="m-radio-list">
+                                                    <label class="m-checkbox m-checkbox--state-success">
+                                                        <input value="{{$item->id}}" type="checkbox" /> Chấp nhận
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <button type="button" onclick="xacNhan(this,{{$item->HocSinh->id}})" class="btn btn-primary" >Xác
                                                 nhận</button>
+                                            @else
+                                    
+                                           @endif
                                         </div>
                                     </div>
                                 </div>
@@ -114,6 +136,7 @@
                                         <th>STT</th>
                                         <th>Mã số</th>
                                         <th>Họ và Tên</th>
+                                        <th>Trạng thái</th>
                                         <th>Chi tiết</th>
                                     </tr>
                                 </thead>
@@ -123,6 +146,14 @@
                                         <td>{{$key +=1}}</td>
                                         <td>{{$item->HocSinh->ma_hoc_sinh}}</td>
                                         <td>{{$item->HocSinh->ten}}</td>
+                                        <td>
+                                            @if ($item->trang_thai == 1)
+                                            <button type="button" class="btn btn-success">Xác nhận</button>
+                                            @else
+                                            <button type="button" class="btn btn-danger">Chưa xác nhận</button>
+                                            @endif
+                                            
+                                        </td>
                                         <td><button type="button" class="btn btn-warning" data-toggle="modal"
                                                 data-target="#m_modal_{{$item->id}}">Chi tiết</button></td>
                                     </tr>
@@ -168,8 +199,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer pull-center">
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Xác
-                                                nhận</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +271,9 @@
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
+    var url_xac_nhan_don_nghi_hoc ="{{ route('xac-nhan-don-xin-nghi-hoc') }}"
     $(document).ready(function () {
         $('#table1').DataTable({
             "pageLength": 100
@@ -253,6 +285,33 @@
             "pageLength": 100
         });
     });
-
+    const xacNhan = (e,id_hs)=>{
+        var xac_nhan_don_nghi_hoc =  $(e).parents('.trang_thai').find('input').prop('checked')
+        if (xac_nhan_don_nghi_hoc) {
+            var id_don_nghi_hoc = $(e).parents('.trang_thai').find('input').val()
+            axios.post(url_xac_nhan_don_nghi_hoc,{
+            'id' : id_don_nghi_hoc,
+            'id_hs' : id_hs
+            })
+            .then(function (response) {
+                Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Xác nhận thành công!',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(
+                window.location.reload()
+            )
+               
+            
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        }
+    }; 
 </script>
 @endsection

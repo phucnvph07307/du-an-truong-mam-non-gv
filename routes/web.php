@@ -40,12 +40,15 @@ Route::group(['middleware' => ['web', 'auth', 'checkClass']], function () {
 
         Route::group(['namespace' => 'DonNghiHoc'], function() {
             Route::get('/don-nghi-hoc', 'DonNghiHocController@index')->name('don-xin-nghi-hoc');
+            Route::post('/xac-nhan-don-nghi-hoc', 'DonNghiHocController@xacNhanDonNghiHoc')->name('xac-nhan-don-xin-nghi-hoc');
         });
 
         Route::group(['namespace' => 'DonDanThuoc'], function() {
             Route::get('/don-dan-thuoc', 'DonDanThuocController@index')->name('don-dan-thuoc');
             Route::post('/gui-phan-hoi-don-dan-thuoc', 'DonDanThuocController@guiPhanHoi')->name('gui-phan-hoi-don-dan-thuoc');
             Route::post('/get-info-phan-hoi', 'DonDanThuocController@infoPhanHoi')->name('info-phan-hoi');
+            Route::post('/xac_nhan_don_thuoc', 'DonDanThuocController@xacNhanDonThuoc')->name('xac-nhan-don-thuoc');
+
         });
 
         Route::prefix('diem-danh')->group(function () {
