@@ -265,7 +265,6 @@
                             <th>Họ tên</th>
                             <th>Ảnh</th>
                             <th>Ngày sinh</th>
-                            <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -283,17 +282,8 @@
                               <td class="sorting_1">{{ ++$key }}</td>
                                 <td>{{ $item->ma_hoc_sinh }}</td>
                                 <td>{{ $item->ten }}</td>
-                                <td><img width="70px" height="70px" src="{{ $item->avatar }}" onerror="errorLoadAvatar(this)" data-ten="{{ $item->ten }}"></td>
+                                <td><img width="70px" height="70px" src="{{ $item->avatar }}" onerror="errorLoadAvatar(this)" data-ten="{{ $item->ten }}" class="img-thumbnail"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
-
-                                <td nowrap="">
-                                  <span class="dropdown">
-                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
-                                      data-toggle="dropdown" aria-expanded="true">
-                                      <i class="la la-ellipsis-h"></i>
-                                    </a>
-                                  </span>
-                                </td>
                               </tr>
                             @endforeach
                         
@@ -354,11 +344,11 @@
   <div class="m-portlet">
     <div class="m-portlet__body">
       <div class="row">
-        <div class="col-10">
+        <div class="col-xl-11 col-lg-11 col-md-10 col-sm-8">
           <h3 class="m-section__heading">Album ảnh</h3>
         </div>
-        <div class="col-2 pl-5">
-          <a href="{{ route('album.index') }}" class="btn btn-outline-accent btn-sm 	m-btn m-btn--icon m-btn--pill ml-5">
+        <div class="col-xl-1 col-lg-1 col-md-2 col-sm-2">
+          <a href="{{ route('album.index') }}" class="btn btn-outline-accent btn-sm 	m-btn m-btn--icon m-btn--pill">
             <span>
               <i class="fa flaticon-book"></i>
               <span>Xem tất cả</span>
