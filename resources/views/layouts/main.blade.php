@@ -83,7 +83,7 @@
 
 	
 		<!-- begin::Quick Sidebar -->
-		@include('layouts._share.quick_sidebar')
+		<!-- @include('layouts._share.quick_sidebar') -->
 		<!-- end::Quick Sidebar -->
 
 		<!-- begin::Scroll Top -->

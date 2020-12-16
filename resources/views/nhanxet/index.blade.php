@@ -36,11 +36,18 @@
                                         <th><input type="checkbox" onclick="checkAll(this)"></th>
                                         <th>STT</th>
                                         <th>Mã Số</th>
+                                        <th>Avatar</th>
                                         <th>Họ và Tên</th>
                                         <th>Ngày Sinh</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <script>
+                                        function errorLoadAvatar(e){
+                                            let ten = e.getAttribute('data-ten');
+                                            e.setAttribute('src', "https://ui-avatars.com/api/?name=" + ten + "&background=random");
+                                        }
+                                    </script>
                                     @forelse ($students as $key => $item)
                                     @php
                                         $date = date_create($item->ngay_sinh);
@@ -49,6 +56,7 @@
                                             <td><input type="checkbox" class="checkbox" data-id="{{ $item->id }}"></td>
                                             <td>{{ ++$key }}</td>
                                             <td>{{ $item->ma_hoc_sinh }}</td>
+                                            <td><img width="50px" height="50px" src="{{ $item->avatar }}" onerror="errorLoadAvatar(this)" data-ten="{{ $item->ten }}" class="img-thumbnail"></td>
                                             <td>{{ $item->ten }}</td>
                                             <td>{{ date_format($date,"d/m/Y") }}</td>
                                         </tr>

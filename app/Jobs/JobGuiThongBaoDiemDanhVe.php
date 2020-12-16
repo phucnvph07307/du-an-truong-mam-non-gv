@@ -72,7 +72,8 @@ class JobGuiThongBaoDiemDanhVe implements ShouldQueue
                 'auth_id'   => 0,
                 'route'     => json_encode([
                     'name_route' => 'ShowThongBao',
-                    'id'         => $noidung_thongbao_id
+                    'id'         => $noidung_thongbao_id,
+                    'id_hs'      => $item->hoc_sinh_id,
                 ])
             ];
             Notification::create($data_thong_bao);

@@ -31,26 +31,9 @@
                         </ul>
                         <ul class="m-portlet__nav">
                             <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
-                                <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
-                                    <i class="la la-ellipsis-h m--font-brand"></i>
+                                <a href="{{ route('thong-bao.create')}}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="View">
+                                    <i class="la la-edit"></i>
                                 </a>
-                                <div class="m-dropdown__wrapper" style="z-index: 101;">
-                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 21px;"></span>
-                                    <div class="m-dropdown__inner">
-                                        <div class="m-dropdown__body">
-                                            <div class="m-dropdown__content">
-                                                <ul class="m-nav">
-                                                    <li class="m-nav__item">
-                                                        <a href="{{ route('thong-bao.create')}}" class="m-nav__link">
-                                                            <i class="m-nav__link-icon flaticon-notes"></i>
-                                                            <span class="m-nav__link-text">Gửi thông báo</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </li>
                         </ul>
                     </div>
