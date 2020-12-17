@@ -4,13 +4,19 @@
 <link href="{!!  asset('css_loading/css_loading.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
+<script>
+    function errorLoadAvatar(e){
+        let name_avatar = e.getAttribute('data-name_avatar');
+        e.setAttribute('src', "https://ui-avatars.com/api/?name=" + name_avatar + "&background=random");
+    }
+</script>
 <div class="m-content">
     
     @if(isset($dot))
     <section class="action-nav d-flex align-items-center justify-content-between mt-4 mb-4">
         <div class="col-lg-10">
             <div class="form-group m-form__group row">
-                <div class="col-lg-10">
+                <div class="col-xl-3 col-lg-3 col-md-10 col-sm-10">
                     <select class="form-control" id="DotKhamSucKhoe" name="dot_id">
                         
                         @foreach ($getDotAll as $item)
@@ -42,13 +48,13 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Mã học sinh</th>
-                        <th>Họ tên</th>
-                        <th>Ảnh</th>
+                        <th><b>Mã học sinh</b></th>
+                        <th><b>Họ tên</b></th>
+                        <th><b>Ảnh</b></th>
                        
-                        <th>Chiều cao</th>
-                        <th>Cân nặng</th>
-                        <th>Chức năng</th>
+                        <th><b>Chiều cao</b></th>
+                        <th><b>Cân nặng</b></th>
+                        <th><b>Chức năng</b></th>
                     </tr>
                 </thead>
                 <tbody id="show-table-suc-khoe">
@@ -60,12 +66,7 @@
                         <th scope="row">{{$i++}}</th>
                         <td>{{$item->ma_hoc_sinh}}</td>
                         <td>{{$item->ten}}</td>
-                        @if ($item->avatar == "")
-                        <td><img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                                height="80px" width="75px" alt=""></td>
-                        @else
-                        <td><img src="{{$item->avatar}}" height="100px" width="75px" alt=""></td>
-                        @endif           
+                        <td><img src="{{ $item->avatar }}" alt="avatar" data-name_avatar="{{ $item->ten }}" onerror="errorLoadAvatar(this)" width="60" class="img-thumbnail"></td>          
                         <td>{{$item->chieu_cao}} cm</td>
                         <td>{{$item->can_nang}} kg</td>
                         <td>

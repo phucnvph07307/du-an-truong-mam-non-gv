@@ -30,9 +30,6 @@
 				.m-body .m-content{
 					padding: 10px 20px;
 				}
-				.m-portlet__body{
-      			    min-height: 500px;
-    			}
 			</style>
 		@endsection
 		<!--end::Web font -->
@@ -86,7 +83,7 @@
 
 	
 		<!-- begin::Quick Sidebar -->
-		@include('layouts._share.quick_sidebar')
+		<!-- @include('layouts._share.quick_sidebar') -->
 		<!-- end::Quick Sidebar -->
 
 		<!-- begin::Scroll Top -->

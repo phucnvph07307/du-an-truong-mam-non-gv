@@ -20,7 +20,6 @@ use PhpOffice\PhpSpreadsheet\Style\Protection;
 use PhpOffice\PhpWord\Settings;
 use Illuminate\Support\Facades\Auth;
 
-
 class HoatDongController extends Controller
 {
 
@@ -37,6 +36,9 @@ class HoatDongController extends Controller
     }
 
     public function index(){
+        $user_id = Auth::user()->id;
+        $giao_vien = $this->GiaoVienRepository->getGVTheoIdUser($user_id);
+        
         $date = Carbon::now(); // or $date = new Carbon()
         $id_nam_hoc = $this->NamHocRepository->maxID();
         $nam_hoc_moi = $this->NamHocRepository->find($id_nam_hoc);
@@ -46,8 +48,7 @@ class HoatDongController extends Controller
         $date_start = Carbon::createFromFormat('Y-m-d', $nam_hoc_moi->start_date);
         $numberNextWeek = $date->weekOfYear -$date_start->weekOfYear ;
         //
-        $user_id = Auth::user()->id;
-        $giao_vien = $this->GiaoVienRepository->getGVTheoIdUser($user_id);
+        
         $ten_lop = $giao_vien->Lop->ten_lop;
         $hoat_dong = $this->HoatDongRepository->getHoatDongByIdLop($giao_vien->lop_id);
         $namArr = $this->HoatDongRepository->getNamOfHoatDongInLop($giao_vien->lop_id);
@@ -78,12 +79,26 @@ class HoatDongController extends Controller
     }
 
     public function store(Request $request){
+        $id_nam_hoc = $this->NamHocRepository->maxID();
+        $giao_vien = $this->GiaoVienRepository->getGVTheoIdUser($request->user_id);
+        if ($giao_vien->type !=1 ) {
+            return redirect()->route('hoat-dong-hoc-index')->with('thong_bao','Bạn không phải là giáo viên chủ nhiệm');
+        }
+        $id_don = $this->HoatDongRepository->kiemTraTonTaiHoatDongTuan($request->tuan,$giao_vien->lop_id,$id_nam_hoc);
+        if($id_don == null){
+
+        }else{
+            if ($id_don->type == 2) {
+                return redirect()->route('hoat-dong-hoc-index')->with('thong_bao','Hoạt động tuần này của bạn đã được phê duyệt không thể gửi lại');
+            }
+        }
+
         $nameFile=$request->file->getClientOriginalName();
         $nameFileArr=explode('.',$nameFile);
         $duoiFile=end($nameFileArr);
 
         $now = Carbon::now();
-        $giao_vien = $this->GiaoVienRepository->getGVTheoIdUser($request->user_id);
+        
         $nameFile = $this->generateRandomString(50).$now->year.$now->day.$now->hour.$now->minute.$now->second;
 
         $link_file_pdf = '';
@@ -93,23 +108,36 @@ class HoatDongController extends Controller
                 $writer->save("file_pdf/excel/".$nameFile.'.pdf');
                 $link_file_pdf = 'file_pdf/excel/'.$nameFile.'.pdf';
         }else{
+            // dd($_FILES['file']['tmp_name']);
                 $domPdfPath = base_path('vendor/dompdf/dompdf');
+                \PhpOffice\PhpWord\Settings::setZipClass(\PhpOffice\PhpWord\Settings::PCLZIP);
                 \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
                 \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+                \PhpOffice\PhpWord\Settings::setOutputEscapingEnabled(true);
+                
                 $Content = \PhpOffice\PhpWord\IOFactory::load($_FILES['file']['tmp_name']);
+                $Content->setDefaultFontName('DejaVu Sans, sans-serif');
+
                 $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
                 $PDFWriter->save('file_pdf/word/'.$nameFile.'.pdf'); 
+
                 $link_file_pdf = 'file_pdf/word/'.$nameFile.'.pdf';
         }
         $dateCreate = [
             'id_gv' => $giao_vien->id,
             'lop_id' => $giao_vien->lop_id,
             'tuan' => $request->tuan,
-            'id_nam_hoc' => $this->NamHocRepository->maxID(),
+            'id_nam_hoc' => $id_nam_hoc,
             'link_file_hd' => $request->getSchemeAndHttpHost().'/'.$link_file_pdf,
             'type' => 1
         ];
-        $this->HoatDongRepository->create($dateCreate);
+        // dd($id_don);
+        if($id_don == null){
+            $this->HoatDongRepository->create($dateCreate);
+        }else{
+            $this->HoatDongRepository->update($id_don['id'],['link_file_hd'=>$request->getSchemeAndHttpHost().'/'.$link_file_pdf]);
+        }
+        
         return redirect()->route('hoat-dong-hoc-index')->with('status', ' Thanh cong! ');
     }
 }

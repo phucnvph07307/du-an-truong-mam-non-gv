@@ -17,6 +17,7 @@
         cursor: pointer;
     }
 </style>
+<link href="{!! asset('vendors/perfect-scrollbar/css/perfect-scrollbar.css') !!}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="m-subheader ">
@@ -64,6 +65,7 @@
                                         <th>Mã số</th>
                                         <th>Họ và Tên</th>
                                         <th>Bệnh án</th>
+                                        <th>Trạng thái</th>
                                         <th>Chi tiết</th>
                                     </tr>
                                 </thead>
@@ -75,6 +77,15 @@
                                         <td>{{$item->HocSinh->ma_hoc_sinh}}</td>
                                         <td>{{$item->HocSinh->ten}}</td>
                                         <td><textarea readonly>{{$item->noi_dung}}</textarea></td>
+                                        <td>
+                                            @if ($item->trang_thai == 1)
+                                            <button type="button" class="btn btn-success">Đã sử dụng</button>
+                                            @else
+                                            <button type="button" class="btn btn-danger">Chưa sử dụng</button>
+                                            @endif
+                                            
+                                        </td>
+
                                         <td><button type="button" class="btn btn-warning" data-toggle="modal"
                                                 data-target="#m_modal_{{$item->id}}">Chi tiết</button></td>
                                     </tr>
@@ -96,6 +107,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
+                                    <div class="m-scrollable" data-scrollbar-shown="true" data-scrollable="true" data-height="500">
                                     <div class="modal-body">
                                         <div class="m-portlet m-portlet--full-height">
                                             <div class="m-portlet__body">
@@ -181,7 +193,7 @@
 
                                                                         <th scope="row">{{$key +=1}}</th>
                                                                         <td>{{$chi_tiet_don_thuoc->ten_thuoc}}</td>
-                                                                        <td> <img style="width: 200px;"
+                                                                        <td> <img style="width: 100px;"
                                                                                 src="{!! asset($chi_tiet_don_thuoc->anh) !!}"
                                                                                 alt="" srcset=""> </td>
                                                                         <td>{{$chi_tiet_don_thuoc->don_vi}}</td>
@@ -298,18 +310,22 @@
                                         </div>
 
                                     </div>
-
-                                    <div class="modal-footer pull-center">
+                                    </div>
+                                    <div class="modal-footer trang_thai_su_dung pull-center">
+                                        @if ($item->trang_thai==0)
                                         <div class="m-form__group form-group">
                                             <div class="m-radio-list">
                                                 <label class="m-checkbox m-checkbox--state-success">
-                                                    {{-- <input type="checkbox" /> Đã sử dụng --}}
-                                                    {{-- <span></span> --}}
+                                                    <input value="{{$item->id}}" type="checkbox" /> Đã sử dụng
+                                                    <span></span>
                                                 </label>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Xác
+                                        <button type="button" onclick="xacNhanSuDung(this,{{$item->HocSinh->id}})" class="btn btn-primary" >Xác
                                             nhận</button>
+                                        @else
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                                       @endif
                                     </div>
                                 </div>
                             </div>
@@ -326,6 +342,8 @@
                                         <th>Mã số</th>
                                         <th>Họ và Tên</th>
                                         <th>Bệnh án</th>
+                                        <th>Trạng thái</th>
+
                                         <th>Chi tiết</th>
                                     </tr>
                                 </thead>
@@ -337,6 +355,14 @@
                                         <td>{{$item->HocSinh->ma_hoc_sinh}}</td>
                                         <td>{{$item->HocSinh->ten}}</td>
                                         <td><textarea readonly>{{$item->noi_dung}}</textarea></td>
+                                        <td>
+                                            @if ($item->trang_thai == 1)
+                                            <button type="button" class="btn btn-success">Đã sử dụng</button>
+                                            @else
+                                            <button type="button" class="btn btn-danger">Chưa sử dụng</button>
+                                            @endif
+                                            
+                                        </td>
                                         <td><button type="button" class="btn btn-warning" data-toggle="modal"
                                                 data-target="#m_modal_{{$item->id}}">Chi tiết</button></td>
                                     </tr>
@@ -357,6 +383,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
+                                        <div class="m-scrollable" data-scrollbar-shown="true" data-scrollable="true" data-height="500">
                                         <div class="modal-body">
                                             <div class="m-portlet m-portlet--full-height">
                                                 <div class="m-portlet__body">
@@ -559,7 +586,7 @@
                                             </div>
     
                                         </div>
-    
+                                        </div>
                                         <div class="modal-footer pull-center">
                                             <div class="m-form__group form-group">
                                                 <div class="m-radio-list">
@@ -569,8 +596,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Xác
-                                                nhận</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
                                         </div>
                                     </div>
                                 </div>
@@ -580,213 +606,6 @@
                         </div>
                     </div>
 
-
-
-                    <div class="modal fade" id="m_modal_4" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn dặn thuốc Phạm
-                                        trung hiếu</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="m-portlet m-portlet--full-height ">
-
-                                        <div class="m-portlet__body">
-                                            <!--begin::Content-->
-                                            <div class="tab-content">
-                                                <div class="tab-pane active" id="m_widget5_tab1_content"
-                                                    aria-expanded="true">
-
-                                                    <!--begin::m-widget5-->
-                                                    <div class="m-widget5">
-                                                        <div class="m-widget5__item">
-                                                            <div class="m-widget5__content">
-                                                                <div class="m-widget5__pic">
-                                                                    <img class="m-widget7__img"
-                                                                        src="../../assets/app/media/img//products/product6.jpg"
-                                                                        alt="">
-                                                                </div>
-                                                                <div class="m-widget5__section">
-                                                                    <h4 class="m-widget5__title">
-                                                                        Phạm Hiếu
-                                                                    </h4>
-                                                                    <span class="m-widget5__desc">
-                                                                        Từ:
-                                                                        <span class="m-widget5__info-date m--font-info">
-                                                                            01/02/20202
-                                                                        </span>
-                                                                        Đến:
-                                                                        <span class="m-widget5__info-date m--font-info">
-                                                                            05/02/2020
-                                                                        </span>
-                                                                    </span>
-                                                                    <div class="m-widget5__info">
-                                                                        <span class="m-widget5__author">
-                                                                            Bệnh án:
-                                                                        </span>
-                                                                        <span class="m-widget5__info-date">
-                                                                            Sốt
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="m-widget5__content">
-
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
-
-                                                    <!--end::m-widget5-->
-                                                </div>
-
-                                            </div>
-
-                                            <!--end::Content-->
-                                        </div>
-                                    </div>
-                                    <div class="m-portlet m-portlet--full-height ">
-
-                                        <div class="m-portlet">
-                                            <div class="m-portlet__head">
-                                                <div class="m-portlet__head-caption">
-                                                    <div class="m-portlet__head-title">
-                                                        <h3 class="m-portlet__head-text">
-                                                            Đơn thuốc
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="m-portlet__body">
-
-                                                <!--begin::Section-->
-                                                <div class="m-section">
-                                                    <div class="m-section__content">
-                                                        <table class=" table m-table table-bordered table-hover">
-                                                            <thead>
-                                                                <tr class="m-table__row--danger">
-                                                                    <th>#</th>
-                                                                    <th>Stt</th>
-                                                                    <th>Tên thuốc</th>
-                                                                    <th>Đơn vị</th>
-                                                                    <th>Liều dùng</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr class="">
-                                                                    <th scope="row">1</th>
-                                                                    <td>Jhon</td>
-                                                                    <td>Stone</td>
-                                                                    <td>@jhon</td>
-                                                                    <td>@jhon</td>
-                                                                </tr>
-                                                                <tr class="">
-                                                                    <th scope="row">2</th>
-                                                                    <td>Lisa</td>
-                                                                    <td>Nilson</td>
-                                                                    <td>@lisa</td>
-                                                                    <td>@jhon</td>
-                                                                </tr>
-                                                                <tr class="">
-                                                                    <th scope="row">3</th>
-                                                                    <td>Larry</td>
-                                                                    <td>the Bird</td>
-                                                                    <td>@twitter</td>
-                                                                    <td>@jhon</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-                                                <!--end::Section-->
-                                            </div>
-
-                                            <!--end::Form-->
-                                        </div>
-                                    </div>
-
-
-                                    <div class="m-portlet m-portlet--full-height ">
-
-                                        <div class="m-portlet__body">
-                                            <div class="m-widget3">
-                                                <div class="m-widget3__item">
-                                                    <div class="m-widget3__header">
-                                                        <div class="m-widget3__user-img">
-                                                            <img class="m-widget3__img"
-                                                                src="../../assets/app/media/img/users/user1.jpg" alt="">
-                                                        </div>
-                                                        <div class="m-widget3__info">
-                                                            <span class="m-widget3__username">
-                                                                Cô giáo: Nguyễn Phương Lan
-                                                            </span><br>
-                                                            <span class="m-widget3__time">
-                                                                2 day ago
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="m-widget3__body">
-                                                        <p class="m-widget3__text">
-
-                                                            doloremagna aliquam erat volutpat.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="m-widget3__item">
-                                                    <div class="m-widget3__header">
-                                                        <div class="m-widget3__user-img">
-                                                            <img class="m-widget3__img"
-                                                                src="../../assets/app/media/img/users/user4.jpg" alt="">
-                                                        </div>
-                                                        <div class="m-widget3__info">
-                                                            <span class="m-widget3__username">
-                                                                Phụ Huynh: Nguyễn Văn Nam
-                                                            </span><br>
-                                                            <span class="m-widget3__time">
-                                                                1 day ago
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="m-widget3__body">
-                                                        <p class="m-widget3__text">
-                                                            Lorem ipsum dolor sit amet,consectetuer edipiscing
-
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" cols="100" rows="5"
-                                                        placeholder="... Gửi phản hồi"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="modal-footer pull-center">
-                                    <div class="m-form__group form-group">
-                                        <div class="m-radio-list">
-                                            <label class="m-checkbox m-checkbox--state-success">
-                                                {{-- <input type="checkbox"> Đã sử dụng --}}
-                                                {{-- <span></span> --}}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Xác nhận</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -795,25 +614,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 @endsection
 
@@ -822,8 +622,13 @@
     var url_get_info_phan_hoi = "{{route('info-phan-hoi')}}";
 </script>
 <script src="{{ asset('firebase_don_dan_thuoc/dan_thuoc.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{!! asset('vendors/perfect-scrollbar/dist/perfect-scrollbar.js') !!}" type="text/javascript"></script>
 <script>
     var url_gui_phan_hoi_dan_thuoc = "{{route('gui-phan-hoi-don-dan-thuoc')}}"
+    var url_xac_nhan_don_thuoc = "{{route('xac-nhan-don-thuoc')}}"
+
+    
     $(document).ready(function () {
         // $('.fix-scroll-bottom').animate({ scrollTop:$('.fix-scroll-bottom').prop('scrollHeight')});
 
@@ -875,6 +680,34 @@
         }
            
         };
+    const xacNhanSuDung = (e,id_hs)=>{
+        var xac_nhan_don_thuoc =  $(e).parents('.trang_thai_su_dung').find('input').prop('checked')
+        if (xac_nhan_don_thuoc) {
+            var id_don_thuoc = $(e).parents('.trang_thai_su_dung').find('input').val()
+            axios.post(url_xac_nhan_don_thuoc,{
+            'id' : id_don_thuoc,
+            'id_hs' : id_hs
+            })
+            .then(function (response) {
+                Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Xác nhận thành công!',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(
+                window.location.reload()
+            )
+               
+            
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+        }
+    }; 
 </script>
 
 @endsection

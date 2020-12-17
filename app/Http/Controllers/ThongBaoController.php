@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Jobs\JobGuiThongBao;
 use App\Jobs\JobGuiThongBaoDiemDanhVe;
 use App\Repositories\GiaoVien\GiaoVienRepository;
+use App\Repositories\HocSinh\HocSinhRepository;
 use App\Repositories\NotificationRepository;
 use App\Models\Notification;
 use App\Models\NoiDungThongBao;
@@ -19,15 +20,18 @@ class ThongBaoController extends Controller
     protected $NoiDungThongBaoRepository;
     protected $NotificationRepository;
     protected $GiaoVienRepository;
+    protected $HocSinhRepository;
     public function __construct(
         GiaoVienRepository $GiaoVienRepository,
         NoiDungThongBaoRepository $NoiDungThongBaoRepository,
-        NotificationRepository $NotificationRepository
+        NotificationRepository $NotificationRepository,
+        HocSinhRepository $HocSinhRepository
 
     ) {
         $this->GiaoVienRepository = $GiaoVienRepository;
         $this->NoiDungThongBaoRepository = $NoiDungThongBaoRepository;
         $this->NotificationRepository = $NotificationRepository;
+        $this->HocSinhRepository = $HocSinhRepository;
     }
 
     public function index()
@@ -76,19 +80,28 @@ class ThongBaoController extends Controller
             $data_save_notifi = $data_notifi->collapse();
             $list_id_hoc_sinh_save_noti[$key]=$data_save_notifi->toArray();
         }
-      
-        $list_device = Auth::user()->profile->Lop->Student->map(function($student)
-        {
-           return $student->user()->select('users.device')->first();
-        });
+        $list_device = [];
 
+        foreach ($list_id_hoc_sinh as $key => $value) {
+            array_push($list_device,[
+                'id_hs' =>$value,
+                'device' => $this->HocSinhRepository->find($value)->User->device
+                ]);
+        }
+
+        
+        $id_noi_dung_thong_bao = $this->NoiDungThongBaoRepository->create($content)->id;
         foreach ($list_device as $key => $value) {
-            $data_device = collect([$value->toArray(),$content]);
+            $content['route'] = [
+                'name_route' => 'detail_medicine',
+                'id' => $id_noi_dung_thong_bao,
+                'id_hs' => $value['id_hs']
+            ];
+
+            $data_device = collect([$value,$content]);
             $data_send_device = $data_device->collapse();
             $list_device[$key] = $data_send_device;
         }
-        $id_noi_dung_thong_bao = $this->NoiDungThongBaoRepository->create($content)->id;
-
         $list_id_hoc_sinh_save_thong_bao = [];
 
         foreach ($list_id_hoc_sinh as $key => $value) {
@@ -98,7 +111,7 @@ class ThongBaoController extends Controller
         // ThongBao::insert($list_id_hoc_sinh_save_thong_bao);
         // dd(1);
 
-        JobGuiThongBao::dispatch($list_id_hoc_sinh_save_noti,$list_id_hoc_sinh_save_thong_bao,$list_device->toArray(),$content,$this->NotificationRepository)->onQueue('giao_vien');
+        JobGuiThongBao::dispatch($list_id_hoc_sinh_save_noti,$list_id_hoc_sinh_save_thong_bao,$list_device,$content,$this->NotificationRepository)->onQueue('giao_vien');
         return 'thành công';
     }
 

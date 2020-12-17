@@ -28,7 +28,7 @@
                 // .then(function () {
                 //     // always executed
                 // });
-                count = res[i].type == 1 ? ++count : count;
+                count = res[i].bell == 1 ? ++count : count;
                 if(res[i].bell == 1){flat = 1}
                 let relativeTime = getMinimalisticRelativeTime(res[i].created_at);
                 content += `

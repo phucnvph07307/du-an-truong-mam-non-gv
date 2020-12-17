@@ -49,13 +49,14 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $username = $request->username;
+        $email = $request->username;
     	$password = $request->password;
     	$remember = $request->has("remember") ? true : false;
 
     	if(Auth::attempt([
-            "username" => $username,
+            "email" => $email,
             "password" => $password,
+            'role' => 2,
             "active" => 1]
             ,$remember)){
     		 return redirect('/');

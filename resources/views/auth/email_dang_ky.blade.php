@@ -472,7 +472,7 @@ body{background-color:#f0f0f0}.logo a:hover,.logo a:focus{color:#859bb1 !importa
     </div>
         
         <div style="font-size: 12px;font-style: normal;font-weight: normal;line-height: 19px;" align="center">
-          <img style="border: 0;display: block;height: auto;width: 100%;max-width: 512px;" alt="" width="512" src="{!! asset('assets/app/media/img/logos/logo-2.png') !!}" />
+          <img style="border: 0;display: block;height: auto;width: 100%;max-width: 350px;" alt="" width="350" src="https://i.ibb.co/LSMhjrW/coolkids.png" />
         </div>
       
             <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 20px;">
