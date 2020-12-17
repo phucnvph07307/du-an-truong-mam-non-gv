@@ -40,8 +40,13 @@ class JobGuiThongBao implements ShouldQueue
      */
     public function handle()
     {
-        Notification::insert($this->data_save_notifi);
-        ThongBao::insert($this->data_save_thong_bao);
+        
+        foreach ($this->data_save_notifi as  $noti_read_tiem) {
+            Notification::create($noti_read_tiem);
+        }
+        foreach ($this->data_save_thong_bao as  $thong_bao) {
+            ThongBao::create($thong_bao);
+        }
         $this->NotificationRepository->notificationApp($this->data_send_device);
         Log::info('Showing user profile for user:', ['user' => $this->data_send_device]);
         

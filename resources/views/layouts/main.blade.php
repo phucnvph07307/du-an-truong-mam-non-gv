@@ -30,9 +30,6 @@
 				.m-body .m-content{
 					padding: 10px 20px;
 				}
-				.m-portlet__body{
-      			    min-height: 500px;
-    			}
 			</style>
 		@endsection
 		<!--end::Web font -->

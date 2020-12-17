@@ -13,6 +13,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 
 
+
 class DonDanThuocController extends Controller
 {
     protected $DonDanThuocRepository;
@@ -160,5 +161,40 @@ class DonDanThuocController extends Controller
         }
 
         return $info;
+    }
+
+    public function xacNhanDonThuoc(Request $request)
+    {
+        $id = $request->id;
+        $id_hs = $request->id_hs;
+
+        $don_thuoc = $this->DonDanThuocRepository->find($id);
+        $hoc_sinh = $this->HocSinhRepository->find($id_hs);
+
+        $thongbao=[];
+        $thongbao['title'] ='Đơn dặn thuốc';
+        $thongbao['content'] ='Đã cho học sinh sử dụng thuốc';
+        $thongbao['route'] = json_encode([
+            'name_route' => 'detail_medicine',
+            'id' => $don_thuoc->id
+        ]);
+        $thongbao['id_hs'] =$hoc_sinh->id;
+        $thongbao['user_id'] =$hoc_sinh->user_id;
+        $thongbao['auth_id'] =Auth::user()->id;
+        $thongbao['role'] =Auth::user()->role;
+       
+        $this->NotificationRepository->create($thongbao);
+        // dd($thongbao);
+        $data_thong_bao['device'] = $don_thuoc->HocSinh->user->device;
+        $data_thong_bao['title'] = $hoc_sinh['ten'].' : giáo viên đã xác nhận về đơn dặn thuốc của bạn';
+        $data_thong_bao['content'] = 'Xác nhận đã sử dụng thuốc';
+        $data_thong_bao['route'] = [
+            'name_route' => 'detail_medicine',
+            'id' => $don_thuoc->id,
+            'id_hs' => $hoc_sinh['id']
+        ];
+       
+        $this->NotificationRepository->notificationApp([$data_thong_bao]);
+        $this->DonDanThuocRepository->update($request->id,['trang_thai'=>1]);
     }
 }
