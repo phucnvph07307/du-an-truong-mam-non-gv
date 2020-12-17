@@ -44,8 +44,9 @@
                                 <th>Bố Mẹ Đón</th>
                                 <th>Người Đón Hộ</th>
                                 <th>Nghỉ</th>
-                                <th>Thông tin</th>
+                                <th>Trả muộn</th>
                                 <th>Ghi chú</th>
+                                <th>Thông báo</th>
 
                             </tr>
                         </thead>
@@ -64,19 +65,26 @@
                                 <td>{{ $item->ten }}</td>
                                 <td><img src="{{ $item->avatar }}" alt="avatar" data-name_avatar="{{ $item->ten }}" onerror="errorLoadAvatar(this)"  width="60" class="img-thumbnail"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
-                                <td><input type="radio" value="1" name="{{ $item->id }}" checked="true"></td>
+                                {{-- <td><input type="radio" value="1" name="{{ $item->id }}" checked="true"></td>
                                 <td><input type="radio" value="2" name="{{ $item->id }}"></td>
-                                <td><input type="radio" value="3" name="{{ $item->id }}"></td>
+                                <td><input type="radio" value="3" name="{{ $item->id }}"></td> --}}
+                                @forelse (config('common.diem_danh_ve') as $key => $value)
                                 <td>
-                                    @foreach ($nguoi_don_ho as $curros)
-                                    @if ($curros->hoc_sinh_id == $item->id)
-                                    <input type="hidden" name="nguoi_don_ho{{ $item->id }}" value="{{ $curros->id }}">
-                                    <i style="cursor: pointer" class="text-warning flaticon-exclamation-1" data-toggle="modal" data-target="{{ '#m_modal_'.$item->id}}"></i>
-                                        
+                                    <input type="radio" value={{ $value }} name="{{ $item->id }}" {{ $value == 1 ? 'checked' : ''}}>
+                                    @if ($key == 'nguoi_don_ho' || $value == 2)
+                                        @foreach ($nguoi_don_ho as $curros)
+                                        @if ($curros->hoc_sinh_id == $item->id)
+                                        <input type="hidden" name="nguoi_don_ho{{ $item->id }}" value="{{ $curros->id }}">
+                                        <i style="cursor: pointer" class="text-warning flaticon-exclamation-1" data-toggle="modal" data-target="{{ '#m_modal_'.$item->id}}"></i>
+                                            
+                                        @endif
+                                        @endforeach
                                     @endif
-                                    @endforeach
                                 </td>
+                                @empty
+                                @endforelse
                                 <td><textarea name="chu_thich_{{ $item->id }}"></textarea></td>
+                                <td><i data-hoc_sinh_id={{$item->id}} onclick="sendNotify(this)" style="cursor: pointer; font-size: 2rem" class="send_notify_all text-warning flaticon-alarm"></i></td>
                             </tr>
                             @endforeach
                             @endif
@@ -95,23 +103,29 @@
                                 <td>{{ $item->student->ten }}</td>
                                 <td><img src="{{ $item->student->avatar }}" alt="avatar" data-name_avatar="{{ $item->student->ten }}" onerror="errorLoadAvatar(this)" width="60" class="img-thumbnail"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
-                                <td><input type="radio" value="1" name="{{ $item->id }}"
+                                {{-- <td><input type="radio" value="1" name="{{ $item->id }}"
                                         {{ ($item->trang_thai == 1)?'checked':'' }}></td>
                                 <td><input type="radio" value="2" name="{{ $item->id }}"
                                         {{ ($item->trang_thai == 2)?'checked':'' }}></td>
                                 <td><input type="radio" value="3" name="{{ $item->id }}"
-                                        {{ ($item->trang_thai == 3)?'checked':'' }}></td>
+                                        {{ ($item->trang_thai == 3)?'checked':'' }}></td> --}}
+                                @forelse (config('common.diem_danh_ve') as $key => $value)
                                 <td>
-                                    @foreach ($nguoi_don_ho as $curros)
-                                    @if ($curros->hoc_sinh_id == $item->hoc_sinh_id)
-                                    <input type="hidden" name="nguoi_don_ho{{ $item->hoc_sinh_id }}" value="{{ $curros->hoc_sinh_id }}">
-                                    <i style="cursor: pointer" class="text-warning flaticon-exclamation-1" data-toggle="modal" data-target="{{ '#m_modal_'.$item->hoc_sinh_id}}"></i>
-                                       
-                                        
+                                    <input type="radio" value={{ $value }} name="{{ $item->id }}" {{ $value == $item->trang_thai ? 'checked' : ''}}>
+                                    @if ($key == 'nguoi_don_ho' || $value == 2)
+                                        @foreach ($nguoi_don_ho as $curros)
+                                        @if ($curros->hoc_sinh_id == $item->hoc_sinh_id)
+                                        <input type="hidden" name="nguoi_don_ho{{ $item->hoc_sinh_id }}" value="{{ $curros->id }}">
+                                        <i style="cursor: pointer" class="text-warning flaticon-exclamation-1" data-toggle="modal" data-target="{{ '#m_modal_'.$item->hoc_sinh_id}}"></i>
+                                            
+                                        @endif
+                                        @endforeach
                                     @endif
-                                    @endforeach
                                 </td>
+                                @empty
+                                @endforelse
                                 <td><textarea name="chu_thich_{{ $item->id }}">{{ $item->chu_thich ? $item->chu_thich : '' }}</textarea></td>
+                                <td><i data-hoc_sinh_id={{$item->hoc_sinh_id}} onclick="sendNotify(this)" style="cursor: pointer; font-size: 2rem" class="send_notify_all text-warning flaticon-alarm"></i></td>
                             </tr>
                             @endforeach
                             @endif
@@ -122,11 +136,20 @@
 
             <div class="m-separator m-separator--dashed"></div>
             <div class="col m--align-center">
-                <button onclick="submitData()" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air">
-                    <span>
-                        <span>Cập nhật</span>
-                    </span>
-                </button>
+                <div class="row">
+                    <div class="col-10">
+                        <button onclick="submitData()" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air">
+                            <span>
+                                <span>Cập nhật</span>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="col-2">
+                        <button onclick="sendAllNotify()" class="btn btn-warning m-btn m-btn--icon" >
+                            <i class="flaticon-alarm"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
            @php
                $modals = ($students != null && count($students) > 0) ? $students : $edit;
@@ -143,9 +166,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Thông tin người đón hộ - <h5
-                                    class="m-subheader__title ">Bé {{ $item->ten }}</h5>
-                            </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Thông tin người đón hộ</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -167,8 +188,11 @@
                                     readonly>
                             </div>
                             <div class="form-group">
+                                <textarea class="form-control m-input m-input--solid" cols="117" rows="5">{{ $curros->ghi_chu }}</textarea>
+                            </div>
+                            <div class="form-group">
                                 @if ($curros->anh_nguoi_don_ho)
-                                    <img src="{{ $curros->anh_nguoi_don_ho }}" width="100%" alt="ảnh">
+                                    <img src="{{ $curros->anh_nguoi_don_ho }}" width="100%" height="600px" alt="ảnh">
                                 @endif
                             </div>
                         </div>
@@ -280,6 +304,66 @@
                 })
             }
         })
+    }
+
+    function sendNotify(e){
+        let check = $(e).hasClass("text-warning");
+        if(check){
+            console.log('...Đang chuẩn bị gửi thông báo điểm danh về chờ tý nhé!');
+            let tr = $(e).parents('tr');
+            let data_send = [{
+                'hoc_sinh_id': $(e).data('hoc_sinh_id'),
+                'trang_thai': tr.find('input[type=radio]:checked').val(),
+                'chu_thich': tr.find('textarea').val(),
+                'thoi_gian_don': moment().format('H:m:s, LL')
+            }];
+
+            axios.post("{{ route('send-notify-diem-danh-ve')}}",{
+            '_token': "{{ csrf_token() }}",
+            'data': JSON.stringify(data_send)
+            }).then(res => {
+                console.log(res.data);
+            })
+        }
+        e.classList.remove("text-warning","flaticon-alarm");
+        e.classList.add("text-success","flaticon-alarm-1");
+        return;
+    }
+
+    var flat = true;
+    function sendAllNotify(){
+        if(flat){
+            console.log('...Đang chuẩn bị gửi tất cả thông báo điểm danh về chờ tý nhé!');
+            flat = false;
+            var statusList = $('input[type=radio]:checked');
+            var data = [];
+            for (i = 0; i < statusList.length; i++) {
+                let tr    = $(statusList[i]).parents('tr')
+                let tag_i = $(statusList[i]).parents('tr').find('.send_notify_all');
+  
+                if(tag_i.hasClass("text-warning")){
+                    let std = {
+                        'hoc_sinh_id': tag_i.attr('data-hoc_sinh_id'),
+                        'trang_thai': tr.find('input[type=radio]:checked').val(),
+                        'chu_thich': tr.find('textarea').val(),
+                        'thoi_gian_don': moment().format('H:m:s, LL')
+                    }
+                data.push(std)
+                }
+            }   
+            let e = $('.send_notify_all');
+            for(let i = 0; i < e.length; i++ ){
+                e[i].classList.remove("text-warning","flaticon-alarm");
+                e[i].classList.add("text-success","flaticon-alarm-1");
+            }
+            axios.post("{{ route('send-notify-diem-danh-ve')}}",{
+            '_token': "{{ csrf_token() }}",
+            'data': JSON.stringify(data)
+            }).then(res => {
+                console.log(res.data);
+            })
+        }
+        return;
     }
 
 </script>

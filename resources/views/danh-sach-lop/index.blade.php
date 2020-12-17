@@ -159,6 +159,10 @@
                                         <td style="vertical-align:middle; width: 30%">Mẹ</td>
                                         <td style="vertical-align:middle;" id="table_info_me"></td>
                                     </tr>
+                                    <tr>
+                                        <td style="vertical-align:middle; width: 30%">Người giám hộ</td>
+                                        <td style="vertical-align:middle;" id="table_info_nguoi_giam_ho"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -191,14 +195,16 @@
     $("#table_info_noi_sinh").text(data.noi_sinh);
 
     $("#table_info_bo").html(`
-        Tên: <span class="m--font-info">${ data.ten_cha }</span><br>
-        Ngày sinh: <span class="m--font-info">${ moment(data.ngay_sinh_cha).format('L') }</span><br>
-        Số điện thoại: <span class="m--font-info">${data.dien_thoai_cha}</span><br>
+        Tên: <span class="m--font-info">${ data.ten_cha ? data.ten_cha : '' }</span><br>
+        Số điện thoại: <span class="m--font-info">${ data.dien_thoai_cha ? data.dien_thoai_cha : ''}</span><br>
     `);
     $("#table_info_me").html(`
-        Tên: <span class="m--font-info">${ data.ten_me }</span><br>
-        Ngày sinh: <span class="m--font-info">${ moment(data.ngay_sinh_me).format('L') }</span><br>
-        Số điện thoại: <span class="m--font-info">${data.dien_thoai_me}</span><br>
+        Tên: <span class="m--font-info">${ data.ten_me ? data.ten_me : '' }</span><br>
+        Số điện thoại: <span class="m--font-info">${ data.dien_thoai_me ? data.dien_thoai_me : ''}</span><br>
+    `);
+    $("#table_info_nguoi_giam_ho").html(`
+        Tên: <span class="m--font-info">${ data.ten_nguoi_giam_ho ? data.ten_nguoi_giam_ho :'' }</span><br>
+        Số điện thoại: <span class="m--font-info">${ data.dien_thoai_nguoi_giam_ho ? data.dien_thoai_nguoi_giam_ho : ''}</span><br>
     `);
 
     $('#m_modal_4').modal('show')

@@ -144,7 +144,7 @@
 </div>
 @endsection @section('script')
 <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
-<script src="{{ asset('/sweetalert2/sweetalert2@10.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
      var dtable;
     $(document).ready(function () {
@@ -254,10 +254,16 @@
                 timer: 1500
                 })
             console.log(response);
+            setTimeout(function(){
+                    location.reload() 
+                },2000);
         })
         .catch(function (error) {
             // handle error
             console.log(error);
+            setTimeout(function(){
+                    location.reload() 
+                },2000);
         })
         .then(function () {
             // always executed

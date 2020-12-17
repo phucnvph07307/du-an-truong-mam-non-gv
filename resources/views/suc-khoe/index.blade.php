@@ -37,7 +37,7 @@
     @if(isset($dot))
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
-            <table class="table m-table m-table--head-bg-success">
+            <table class="table table-bordered table-hover">
             
                 <thead>
                     <tr>

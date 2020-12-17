@@ -57,6 +57,7 @@ Route::group(['middleware' => ['web', 'auth', 'checkClass']], function () {
 
             Route::get('ve', 'DiemDanhVe\DiemDanhVeController@showDiemDanhVe')->name('diem_danh_ve.create');
             Route::post('ve', 'DiemDanhVe\DiemDanhVeController@postDiemDanhVe')->name('diem_danh_ve.store');
+            Route::post('thongbao-diemdanhve', 'ThongBaoController@sendNotifyDiemDanhVe')->name('send-notify-diem-danh-ve');
         });
 
 

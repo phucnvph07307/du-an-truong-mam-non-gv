@@ -10,6 +10,7 @@
           $countDonNghiHoc += $value->DonNghiHoc
                               ->where('ngay_bat_dau', '<=', date('Y-m-d'))
                               ->where('ngay_ket_thuc', '>=', date('Y-m-d'))
+                              ->where('lop_id', $lopHoc->id)
                               ->count();        
       }
 
@@ -17,6 +18,7 @@
           $countDonDanThuoc += $value->DonDanThuoc
                               ->where('ngay_bat_dau', '<=', date('Y-m-d'))
                               ->where('ngay_ket_thuc', '>=', date('Y-m-d'))
+                              ->where('lop_id', $lopHoc->id)
                               ->count();        
       }
     }
@@ -257,13 +259,13 @@
                     <table class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer"
                       id="m_table_2_2">
                       <thead>
-                        <tr>
-                            <th>#</th>
+                        <tr align="center">
+                            <th>STT</th>
                             <th>Mã học sinh</th>
                             <th>Họ tên</th>
                             <th>Ảnh</th>
                             <th>Ngày sinh</th>
-                            <th>Actions</th>
+                            
                         </tr>
                       </thead>
                       <tbody>
@@ -277,21 +279,14 @@
                               @php
                                 $date=date_create($item->ngay_sinh);
                               @endphp
-                              <tr role="row" class="odd">
+                              <tr role="row" class="odd" align="center">
                               <td class="sorting_1">{{ ++$key }}</td>
                                 <td>{{ $item->ma_hoc_sinh }}</td>
                                 <td>{{ $item->ten }}</td>
                                 <td><img width="70px" height="70px" src="{{ $item->avatar }}" onerror="errorLoadAvatar(this)" data-ten="{{ $item->ten }}"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
 
-                                <td nowrap="">
-                                  <span class="dropdown">
-                                    <a href="#" class="btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
-                                      data-toggle="dropdown" aria-expanded="true">
-                                      <i class="la la-ellipsis-h"></i>
-                                    </a>
-                                  </span>
-                                </td>
+                                
                               </tr>
                             @endforeach
                         
