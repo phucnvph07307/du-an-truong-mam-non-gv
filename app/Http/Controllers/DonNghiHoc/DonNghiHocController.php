@@ -51,7 +51,7 @@ class DonNghiHocController extends Controller
         $thongbao['title'] ='Đơn nghỉ học';
         $thongbao['content'] ='Đã xác nhận cho học sinh';
         $thongbao['route'] = json_encode([
-            'name_route' => 'detail_medicine',
+            'name_route' => 'ChiTietNghiHoc',
             'id' => $don_nghi_hoc->id
         ]);
         $thongbao['id_hs'] =$hoc_sinh->id;
@@ -65,7 +65,7 @@ class DonNghiHocController extends Controller
         $data_thong_bao['title'] = $hoc_sinh['ten'].' : giáo viên đã xác nhận về đơn nghỉ học của bạn';
         $data_thong_bao['content'] = 'Đã xác nhận cho học sinh';
         $data_thong_bao['route'] = [
-            'name_route' => 'detail_medicine',
+            'name_route' => 'ChiTietNghiHoc',
             'id' => $don_nghi_hoc->id,
             'id_hs' => $hoc_sinh['id']
         ];

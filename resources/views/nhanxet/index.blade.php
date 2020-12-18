@@ -116,7 +116,7 @@
 @endsection
 @section('script')
 
-<script src="{{ asset('/sweetalert2/sweetalert2@10.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- https://viblo.asia/p/tim-hieu-jquery-datatables-co-ban-trong-10-phut-07LKXp4eKV4 -->
 <script>
     $(document).ready(function () {
@@ -200,7 +200,7 @@
                         'bua_an'        : $("[name='bua_an']").val(),
                         'ngu'           : $("[name='ngu']").val(),
                         've_sinh'       : $("[name='ve_sinh']").val(),
-                        'giao_vien_id'  : {{ Illuminate\Support\Facades\Auth::id() }},
+                        'giao_vien_id'  : {{ Illuminate\Support\Facades\Auth::user()->profile->id }},
                         'hoc_sinh_id'   : toPeoples
                     })
             .then(res => {

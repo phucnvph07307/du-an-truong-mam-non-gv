@@ -71,11 +71,20 @@ class ThongBaoController extends Controller
         $content['role'] = Auth::user()->role;
 
         $content['type'] = 1;
-        $content['route'] = 'tin_tuc';
+        $id_noi_dung_thong_bao = $this->NoiDungThongBaoRepository->create($content)->id;
 
         $list_id_hoc_sinh_save_noti=[];
         foreach ($list_id_hoc_sinh as $key => $value) {
-            $user_id =['user_id'=>$value];
+            // dd($value);
+            $content['id_hs'] = $value;
+            $content['route'] = json_encode(
+                [
+                    'name_route' => 'ShowThongBao',
+                    'id' => $id_noi_dung_thong_bao,
+                    'id_hs' => $value
+                ]
+            );
+            $user_id =['user_id'=>$this->HocSinhRepository->find($value)->user_id];
             $data_notifi = collect([$user_id,$content]);
             $data_save_notifi = $data_notifi->collapse();
             $list_id_hoc_sinh_save_noti[$key]=$data_save_notifi->toArray();
@@ -89,11 +98,9 @@ class ThongBaoController extends Controller
                 ]);
         }
 
-        
-        $id_noi_dung_thong_bao = $this->NoiDungThongBaoRepository->create($content)->id;
-        foreach ($list_device as $key => $value) {
+            foreach ($list_device as $key => $value) {
             $content['route'] = [
-                'name_route' => 'detail_medicine',
+                'name_route' => 'ShowThongBao',
                 'id' => $id_noi_dung_thong_bao,
                 'id_hs' => $value['id_hs']
             ];
@@ -102,6 +109,7 @@ class ThongBaoController extends Controller
             $data_send_device = $data_device->collapse();
             $list_device[$key] = $data_send_device;
         }
+        // dd($list_device);
         $list_id_hoc_sinh_save_thong_bao = [];
 
         foreach ($list_id_hoc_sinh as $key => $value) {
@@ -123,6 +131,7 @@ class ThongBaoController extends Controller
     {
         $thongBaoDaGui = NoiDungThongBao::where('auth_id', Auth::id())
                                         ->where('isShow', 1)
+                                        ->orderBy('id','desc')
                                         ->paginate(config('common.paginate_size.default'));
         return view('thong-bao.thong_bao_da_gui', compact('thongBaoDaGui'));
     }
