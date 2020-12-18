@@ -43,7 +43,7 @@
     @if(isset($dot))
     <div class="m-portlet">
         <div class="m-portlet__body table-responsive">
-            <table class="table m-table border table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
+            <table class="table table-bordered table-hover">
             
                 <thead>
                     <tr>

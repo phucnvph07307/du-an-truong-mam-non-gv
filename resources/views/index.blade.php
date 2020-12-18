@@ -259,12 +259,13 @@
                     <table class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer"
                       id="m_table_2_2">
                       <thead>
-                        <tr>
-                            <th>#</th>
+                        <tr align="center">
+                            <th>STT</th>
                             <th>Mã học sinh</th>
                             <th>Họ tên</th>
                             <th>Ảnh</th>
                             <th>Ngày sinh</th>
+                            
                         </tr>
                       </thead>
                       <tbody>
@@ -278,12 +279,14 @@
                               @php
                                 $date=date_create($item->ngay_sinh);
                               @endphp
-                              <tr role="row" class="odd">
+                              <tr role="row" class="odd" align="center">
                               <td class="sorting_1">{{ ++$key }}</td>
                                 <td>{{ $item->ma_hoc_sinh }}</td>
                                 <td>{{ $item->ten }}</td>
                                 <td><img width="70px" height="70px" src="{{ $item->avatar }}" onerror="errorLoadAvatar(this)" data-ten="{{ $item->ten }}" class="img-thumbnail"></td>
                                 <td>{{ date_format($date,"d/m/Y") }}</td>
+
+                                
                               </tr>
                             @endforeach
                         

@@ -82,7 +82,7 @@
                                         <td><input type="radio" value="2" name="{{ $item->id }}" onclick="unTick(this)"></td>
                                         {{-- <td><input type="radio" value="3" name="{{ $item->id }}"></td> --}}
                                         <td><input type="checkbox" name="phieu_an_{{ $item->id }}" checked="true"></td>
-                                        <td><textarea name="chu_thich_{{ $item->id }}"></textarea></td>
+                                        <td><textarea class="form-control m-input" name="chu_thich_{{ $item->id }}"></textarea></td>
                                     </tr>
                                 @endforeach
                             @endif

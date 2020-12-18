@@ -218,12 +218,12 @@
                         ],
                     backgroundColor: [
                         @forEach($can_nang as $key => $item)
-                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
                         @endforeach
                     ],
                     borderColor: [
                         @forEach($can_nang as $key => $item)
-                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
                         @endforeach
                     ],
                     borderWidth: 1
@@ -261,12 +261,12 @@
                         ],
                     backgroundColor: [
                         @forEach($chieu_cao as $key => $item)
-                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
                         @endforeach
                     ],
                     borderColor: [
                         @forEach($chieu_cao as $key => $item)
-                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)',
                         @endforeach
                     ],
                     borderWidth: 1
