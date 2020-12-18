@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Repositories\GiaoVien\GiaoVienRepository;
 use App\Repositories\HoatDong\HoatDongRepository;
 use App\Repositories\NamHocRepository;
+use App\Http\Requests\HoatDong\StoreHoatDong;
 
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -78,7 +79,7 @@ class HoatDongController extends Controller
         return $randomString;
     }
 
-    public function store(Request $request){
+    public function store(StoreHoatDong $request){
         $id_nam_hoc = $this->NamHocRepository->maxID();
         $giao_vien = $this->GiaoVienRepository->getGVTheoIdUser($request->user_id);
         if ($giao_vien->type !=1 ) {
@@ -135,7 +136,7 @@ class HoatDongController extends Controller
         if($id_don == null){
             $this->HoatDongRepository->create($dateCreate);
         }else{
-            $this->HoatDongRepository->update($id_don['id'],['link_file_hd'=>$request->getSchemeAndHttpHost().'/'.$link_file_pdf]);
+            $this->HoatDongRepository->update($id_don['id'],['link_file_hd'=>$request->getSchemeAndHttpHost().'/'.$link_file_pdf, 'type'=>0]);
         }
         
         return redirect()->route('hoat-dong-hoc-index')->with('status', ' Thanh cong! ');

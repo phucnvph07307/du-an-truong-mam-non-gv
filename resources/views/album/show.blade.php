@@ -167,7 +167,7 @@
     </style>
 </head>
 <body>
-  <center><h2>"<span contenteditable="true" id="album-title">{{ $data->title }}</span>"</h2></center>
+  <center><h2><i><span contenteditable="true" id="album-title">{{ $data->title }}</span></i></h2></center>
   <a href="{{ route('album.index') }}"><i class="fas fa-arrow-circle-left" style="font-size: 2rem; color: blue"></i></a>
   <i class="far fa-plus-circle"  data-toggle="modal" data-target="#myModal" style="font-size: 2rem; color: greenyellow; cursor: pointer;"></i>
 

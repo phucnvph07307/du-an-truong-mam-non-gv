@@ -29,6 +29,28 @@
         @if (true)
 
         <div class="m-portlet__body">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('diem_danh_ban_sang.create')}}"
+                    style="background: #c3fcff;">
+                        <i class="flaticon-list"></i> <span style="color: #000000;">Ban Sáng</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('diem_danh_ban_chieu.create')}}"
+                    style="background: #fff6b4;">
+                        <i class="flaticon-list"></i> <span style="color: #000000;">Ban Chiều</span>
+                    </a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="javascript:;"
+                    style="background: #ffb8b8;">
+                        <i class="flaticon-list"></i> <span style="color: #000000;">Ra Về</span>
+                    </a>
+                </li>
+            </ul>
 
             <div class="tab-content">
                 <div class="tab-pane active " id="m_tabs_12_1" role="tabpanel">

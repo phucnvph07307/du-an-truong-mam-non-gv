@@ -33,14 +33,21 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ route('diem_danh_ban_sang.create')}}"
                     style="background: #c3fcff;">
-                        <i class="flaticon-list"></i> Sáng
+                        <i class="flaticon-list"></i> <span style="color: #000000;">Ban Sáng</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:;"
                     style="background: #fff6b4;">
-                        <i class="flaticon-list"></i> Chiều
+                        <i class="flaticon-list"></i> <span style="color: #000000;">Ban Chiều</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('diem_danh_ve.create')}}"
+                    style="background: #ffb8b8;">
+                        <i class="flaticon-list"></i> <span style="color: #000000;">Ra Về</span>
                     </a>
                 </li>
             </ul>
