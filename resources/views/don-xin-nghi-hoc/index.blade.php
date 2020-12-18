@@ -15,24 +15,15 @@
         <div class="col-xl-12">
             <!--begin::Portlet-->
             <div class="m-portlet m-portlet--tabs m-portlet--success m-portlet--head-solid-bg m-portlet--bordered">
-                <div class="m-portlet__head">
-                    <div class="m-portlet__head-tools">
-                        <ul class="nav nav-tabs m-tabs-line m-tabs-line--primary" role="tablist">
-                            <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_12_1"
-                                    role="tab">
-                                    <i class="la la-cog"></i> HÔM NAY
-                                </a>
-                            </li>
-                            <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_tabs_12_3" role="tab">
-                                    <i class="la la-bell-o"></i>LỊCH SỬ
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="m-portlet__body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link m-tabs__link active" role="tab" data-toggle="tab" href="#m_tabs_12_1" >Hôm nay</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" role="tab" data-toggle="tab" href="#m_tabs_12_3">Lịch sử</a>
+                        </li>
+                    </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="m_tabs_12_1" role="tabpanel">
                             <table id="table1"

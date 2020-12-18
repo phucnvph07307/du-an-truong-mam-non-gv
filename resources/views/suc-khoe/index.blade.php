@@ -152,16 +152,13 @@
             var i = 1
             response.data.forEach(element => {
                 url_new = url_ChiTietSucKhoe.replace('id', element.id)
-                if(element.avatar == null){
-                    element.avatar = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                }
                 content+=
                 `
                 <tr>
                     <th scope="row">${i++}</th>
                     <td>${element.ma_hoc_sinh}</td>
                     <td>${element.ten}</td>
-                    <td><img src=${element.avatar} height="90px" width="85px" alt=""></td>
+                    <td><img src="${element.avatar}" alt="avatar" data-name_avatar="${element.ten}" onerror="errorLoadAvatar(this)" width="60" class="img-thumbnail"></td>
                     <td>${element.chieu_cao} cm</td>
                     <td>${element.can_nang} kg</td>
                     <td>
