@@ -13,6 +13,15 @@
         <div class="mr-auto">
             <h3 class="m-subheader__title m-subheader__title--separator">Hoạt động học tập</h3>
         </div>
+        <div>
+            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover" aria-expanded="true">
+                <div class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
+                    <div class="m-widget4__img m-widget4__img--icon p-2" data-toggle="modal" data-target="#modalNhapFile">
+                        <img width="25px" src="{{ asset('assets/app/media/img/files/csv-svgrepo-com.svg') }}">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="m-content">
@@ -20,29 +29,6 @@
 
         <div class="col-xl-12">
             <!--begin::Portlet-->
-            <div class="m-portlet m-portlet--tabs m-portlet--success m-portlet--head-solid-bg m-portlet--bordered">
-                <div class="m-portlet__head">
-                    <div class="m-portlet__head-tools">
-                        <ul class="nav nav-tabs m-tabs-line m-tabs-line--primary" role="tablist">
-                            <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_tabs_12_1"
-                                    role="tab">
-                                    <i class="flaticon-folder-1"></i> KẾ HOẠCH HỌC
-                                </a>
-                            </li>
-                            <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link" href="" data-toggle="modal"
-                                    data-target="#modalNhapFile">
-                                    <i class="flaticon-clipboard"></i>NHẬP FILE HOẠT ĐỘNG
-                                </a>
-                            </li>
-
-                        </ul>
-
-
-                    </div>
-                </div>
-            </div>
             <div class="m-portlet">
                 @if (session('status'))
                 <div class="alert alert-success">
@@ -70,10 +56,9 @@
                     </div>
                     <div class="d-flex justify-content-between bd-highlight">
                         <div class="p-3 bd-highlight">
-                            <button type="button" class="btn btn-primary">Chờ xác nhận</button>
-                            <button type="button" class="btn btn-success">Đã xác nhận</button>
-                            
-                            <button type="button" class="btn btn-danger">Bị từ chối</button>
+                            <i class="la la-square text-primary"></i><i>Chờ xác nhận</i>
+                            <i class="la la-square text-success"></i><i>Đã xác nhận</i>
+                            <i class="la la-square text-danger"></i><i>Bị từ chối</i>
                         </div>
                     </div>
 
@@ -176,7 +161,12 @@
                                     </div>
                                 </div>
                                 <div class="input-group mb-3 ml-3">
-                                    <input type="file" id="file_import_id" name="file">
+                                    <input type="file" id="file_import_id" name="file" 
+                                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                    >
+                                    @error('file')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <input type="text" hidden value="{{ Auth::user()->id }}" name="user_id">
@@ -199,7 +189,6 @@
 
 @section('script')
 
-<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/jquery/jquery.dataTables.min.js') }}"></script>
 
 <!-- https://viblo.asia/p/tim-hieu-jquery-datatables-co-ban-trong-10-phut-07LKXp4eKV4 -->
@@ -207,17 +196,10 @@
     function oppenTabPdf($arr){
         window.open('http://127.0.0.1:8000/'+ $arr,'_blank');
     };
-    $(document).ready(function () {
-        $('#table1').DataTable({
-            "pageLength": 100
-        });
-        $('#table2').DataTable({
-            "pageLength": 100
-        });
-        $('#table3').DataTable({
-            "pageLength": 100
-        });
-    });
-
 </script>
+@error('file')
+    <script>
+        $('#modalNhapFile').modal('show')
+    </script>
+@enderror
 @endsection
