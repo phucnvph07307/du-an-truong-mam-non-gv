@@ -54,7 +54,7 @@
                         </div>
                         <div class="form-group">
                             <label for=""></label>
-                            <textarea name="content" class="form-control" id="content" class="ckeditor"></textarea>
+                            <textarea name="content" style="min-height: 200px" class="form-control" id="content" class="ckeditor"></textarea>
                         </div>
                     </form>
                 </div>
@@ -171,8 +171,8 @@
                 .draw();
         });
     });
-    var editor = CKEDITOR.replace("content");
-    CKEDITOR.config.height = 300;
+    // var editor = CKEDITOR.replace("content");
+    // CKEDITOR.config.height = 300;
 
     const checkAll = (e) => {
         $(e).parents("table").find(".checkbox").not(e).prop("checked", e.checked);
@@ -204,7 +204,7 @@
         }
         console.log(list_id_hoc_sinh)
         let err_title = $("[name='title']").val() == "" ? false : true;
-        let err_content = editor.getData() == "" ? false : true;
+        let err_content = $('#content').val() == "" ? false : true;
         if (!err_title) {
             Swal.fire({
             title: 'Tiêu đề!',
@@ -242,7 +242,7 @@
             console.log(list_id_hoc_sinh)
             axios.post("{{route('thong-bao.store')}}",{
             'title' : $("[name=title]").val(),
-            'content': editor.getData(),
+            'content':$('#content').val(),
             'list_id_hoc_sinh' :list_id_hoc_sinh
         })
         .then(function (response) {
