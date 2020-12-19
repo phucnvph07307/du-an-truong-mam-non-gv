@@ -2,8 +2,8 @@
 return [
     'key_firebase' => 'AAAA0i5VEtw:APA91bGn6K6XM-GK2RHqFVi7W3Iz3JqLcCrz7wgmfI2Ab2TcKWn1fzdyDJumPtmEaR7NP2udSTBEGKbhIyuO46jPF_hrB9MSPkgo9KnO-mqBy6kAmNtPFq60hLUAUVwT8Ul_5LWvWUvB',
     'HostDomain_servesms' => 'https://smsgateway.rbsoft.org/services/send.php?',
-    'key_servesms' => 'a124bdf6c0917d47c74343f5e7332d5ecc1ce522',
-    'devices_servesms' => '2096|0',
+    'key_servesms' => 'f10ae59b238cfd1c227c17d1029900224a1f9e1a',
+    'devices_servesms' => '2119|0',
     'DB_HOST_STORAGE' => "http://127.0.0.1:8000",
     'paginate_size' => [
         'default' => 10,
