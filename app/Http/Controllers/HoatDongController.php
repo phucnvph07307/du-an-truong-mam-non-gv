@@ -45,9 +45,20 @@ class HoatDongController extends Controller
         $nam_hoc_moi = $this->NamHocRepository->find($id_nam_hoc);
         
         //
-
         $date_start = Carbon::createFromFormat('Y-m-d', $nam_hoc_moi->start_date);
+        $tong_tuan_cua_nam_hoc =($date_start->weeksInYear());
+        
+        $year_start_nam_hoc = $date_start->year;
         $numberNextWeek = $date->weekOfYear -$date_start->weekOfYear ;
+        if ($numberNextWeek+$date_start->weekOfYear >= $tong_tuan_cua_nam_hoc) {
+           $week =  $numberNextWeek+$date_start->weekOfYear - $tong_tuan_cua_nam_hoc -1;
+        }else{
+            $week = $numberNextWeek;
+        }   
+        $date->setISODate($date->year,$date->weekOfYear+1);
+        $start_day_week = $date->startOfWeek()->format('d-m-Y');
+        $end_day_week = $date->endOfWeek()->format('d-m-Y');
+        $tuan_nop = [$numberNextWeek+1,$start_day_week,$end_day_week];
         //
         
         $ten_lop = $giao_vien->Lop->ten_lop;
@@ -66,7 +77,7 @@ class HoatDongController extends Controller
             $arr_hd[$this->NamHocRepository->find($namArr[$i]->id_nam_hoc)['name']] = $arr;
             
         }
-        return view('hoat-dong-hoc.index',compact('numberNextWeek','ten_lop','arr_hd'));
+        return view('hoat-dong-hoc.index',compact('tuan_nop','ten_lop','arr_hd'));
     }
 
     function generateRandomString($length = 6) {
@@ -97,33 +108,35 @@ class HoatDongController extends Controller
         $nameFile=$request->file->getClientOriginalName();
         $nameFileArr=explode('.',$nameFile);
         $duoiFile=end($nameFileArr);
-
         $now = Carbon::now();
         
         $nameFile = $this->generateRandomString(50).$now->year.$now->day.$now->hour.$now->minute.$now->second;
 
         $link_file_pdf = '';
         if($duoiFile == 'xls' || $duoiFile == 'xlsx'){
-                $spreadsheet = IOFactory::load($_FILES['file']['tmp_name']);
-                $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
-                $writer->save("file_pdf/excel/".$nameFile.'.pdf');
-                $link_file_pdf = 'file_pdf/excel/'.$nameFile.'.pdf';
+           
         }else{
+            return redirect()->route('hoat-dong-hoc-index')->with('thong_bao','Vui lòng nhập đúng file excel');
+
             // dd($_FILES['file']['tmp_name']);
-                $domPdfPath = base_path('vendor/dompdf/dompdf');
-                \PhpOffice\PhpWord\Settings::setZipClass(\PhpOffice\PhpWord\Settings::PCLZIP);
-                \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
-                \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
-                \PhpOffice\PhpWord\Settings::setOutputEscapingEnabled(true);
+                // $domPdfPath = base_path('vendor/dompdf/dompdf');
+                // \PhpOffice\PhpWord\Settings::setZipClass(\PhpOffice\PhpWord\Settings::PCLZIP);
+                // \PhpOffice\PhpWord\Settings::setPdfRendererPath($domPdfPath);
+                // \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+                // \PhpOffice\PhpWord\Settings::setOutputEscapingEnabled(true);
                 
-                $Content = \PhpOffice\PhpWord\IOFactory::load($_FILES['file']['tmp_name']);
-                $Content->setDefaultFontName('DejaVu Sans, sans-serif');
+                // $Content = \PhpOffice\PhpWord\IOFactory::load($_FILES['file']['tmp_name']);
+                // $Content->setDefaultFontName('DejaVu Sans, sans-serif');
 
-                $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
-                $PDFWriter->save('file_pdf/word/'.$nameFile.'.pdf'); 
+                // $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
+                // $PDFWriter->save('file_pdf/word/'.$nameFile.'.pdf'); 
 
-                $link_file_pdf = 'file_pdf/word/'.$nameFile.'.pdf';
+                // $link_file_pdf = 'file_pdf/word/'.$nameFile.'.pdf';
         }
+        $spreadsheet = IOFactory::load($_FILES['file']['tmp_name']);
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf($spreadsheet);
+        $writer->save("file_pdf/excel/".$nameFile.'.pdf');
+        $link_file_pdf = 'file_pdf/excel/'.$nameFile.'.pdf';
         $dateCreate = [
             'id_gv' => $giao_vien->id,
             'lop_id' => $giao_vien->lop_id,
@@ -136,7 +149,7 @@ class HoatDongController extends Controller
         if($id_don == null){
             $this->HoatDongRepository->create($dateCreate);
         }else{
-            $this->HoatDongRepository->update($id_don['id'],['link_file_hd'=>$request->getSchemeAndHttpHost().'/'.$link_file_pdf, 'type'=>0]);
+            $this->HoatDongRepository->update($id_don['id'],['link_file_hd'=>$request->getSchemeAndHttpHost().'/'.$link_file_pdf, 'type'=>1]);
         }
         
         return redirect()->route('hoat-dong-hoc-index')->with('status', ' Thanh cong! ');

@@ -41,6 +41,13 @@
                     <h5>{{session('thong_bao')}}</h5>
                 </div>
                 @endif
+
+                @if (session('loi'))
+                <div class="alert alert-danger">
+                    <h5>{{session('thong_bao')}}</h5>
+                </div>
+                @endif
+
                 <div class="m-portlet__head">
 
                     <div class="m-portlet__head-caption">
@@ -145,19 +152,22 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">Tuần :</span>
+                                            <span class="input-group-text" id="inputGroup-sizing-default"> Tuần :</span>
                                         </div>
 
-                                        <input type="text" value="{{$numberNextWeek}}" disabled class="form-control"
+                                        <input type="text" value="{{$tuan_nop[0]}}" disabled class="form-control"
                                             aria-label="Sizing example input"
                                             aria-describedby="inputGroup-sizing-default">
-
-                                        <input type="text" value="{{$numberNextWeek}}" name="tuan" hidden
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroup-sizing-default"> {{$tuan_nop[1]}} đến  {{$tuan_nop[2]}}</span>
+                                            </div>
+                                        <input type="text" value="{{$tuan_nop[0]}}" name="tuan" hidden
                                             class="form-control" aria-label="Sizing example input"
                                             aria-describedby="inputGroup-sizing-default">
+                                           
                                     </div>
                                 </div>
                                 <div class="input-group mb-3 ml-3">
